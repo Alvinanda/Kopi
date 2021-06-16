@@ -1,4 +1,4 @@
-<<?php
+<?php
 
  class Manajer extends CI_Controller{
    function __construct(){
@@ -9,10 +9,9 @@
  		$this->load->library('form_validation');
     $this->load->library('session');
     $data['session'] = $this->session->userdata();
-   	//$this->load->view('layouts/header');
-    //$this->load->view('layouts/sidebar_manajer', $data);
-  //  $this->load->view('layouts/navbar', $data);
-
+   	$this->load->view('layouts/header');
+    $this->load->view('layouts/sidebar_manajer', $data);
+    $this->load->view('layouts/navbar', $data);
  	}
 
   function index(){
@@ -211,9 +210,8 @@
   function lihatJadwalShift(){
     $outlet= $this->session->userdata('outlet');
     $data['bahan_baku'] = $this->m_manajer->tampilBahanBaku($outlet)->result();
-    $this->load->view('manajer/fullcalendar');
+    $data['jadwal_shift'] = $this->m_manajer->lihatJadwalShift();
+    $this->load->view('manajer/v_lihatJadwalShift',$data);
     $this->load->view('layouts/footer');
   }
-
-
  }

@@ -51,4 +51,11 @@ class m_manajer extends CI_Model{
       return $this->db->get('outlet');
       }
 
+  function lihatJadwalShift(){
+    $this->db->order_by('jam_masuk','ASC');
+    $this->db->group_by('jam_masuk');
+    $this->db->join('user', 'user.id_user = jadwal_shift.id_user');
+    return $this->db->get('jadwal_shift')->result();
+  }
+
 }
