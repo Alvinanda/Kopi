@@ -279,7 +279,12 @@
     $outlet= $this->session->userdata('outlet');
     $data['user'] = $this->m_manajer->tampilPegawai($outlet)->result();
     $data['shift'] = $this->m_manajer->tampilShift($outlet)->result();
-    //$data['jadwal_shift'] = $this->m_manajer->lihatJadwalShift();
+    $data['jadwal'] = $this->m_manajer->tampilJadwalShift()->result();
+    // echo '<pre>';
+    // var_dump($data['jadwal']);
+    // echo '</pre>';    
+    // die;
+    // $data['jadwal_shift'] = $this->m_manajer->lihatJadwalShift();
     $this->load->view('manajer/v_lihatJadwalShift',$data);
     $this->load->view('layouts/footer');
   }

@@ -24,10 +24,28 @@ class m_manajer extends CI_Model{
     return $this->db->get_where('bahan_baku');
     }
 
+    // function tampilShift($where){
+    //   $this->db->where('outlet',$where);
+    //   $this->db->join('shift')
+    //   return $this->db->get_where('shift');
+    // }
+
     function tampilShift($where){
-      $this->db->where('outlet',$where);
-      return $this->db->get_where('shift');
-      }
+      $this->db->select('*');
+      $this->db->from('shift');
+      $this->db->group_by('jam_masuk');
+      $this->db->order_by('jam_masuk','asc');
+      return $this->db->get();
+    }
+
+    function tampilJadwalShift(){
+      $this->db->select('*');
+      $this->db->from('jadwal_shift j');
+      $this->db->join('user u', 'u.id_user = j.id_user');
+      $this->db->order_by("hari", "asc"); 
+      // $this->db->order_by('kode_shift','asc');
+      return $this->db->get();
+    }
 
   function tampilStarMember($where){
       $this->db->where('outlet',$where);
