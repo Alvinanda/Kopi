@@ -24,6 +24,11 @@ class m_manajer extends CI_Model{
     return $this->db->get_where('bahan_baku');
     }
 
+    function tampilShift($where){
+      $this->db->where('outlet',$where);
+      return $this->db->get_where('shift');
+      }
+
   function tampilStarMember($where){
       $this->db->where('outlet',$where);
       $this->db->where('jabatan','star member');
@@ -41,9 +46,9 @@ class m_manajer extends CI_Model{
         }
 
   function tampilPegawai($where){
+    $jabatan= array('staff', 'manajer');
+    $this->db->where_in('jabatan',$jabatan);
     $this->db->where('outlet',$where);
-    $this->db->where('jabatan','manajer');
-    $this->db->or_where('jabatan','staff');
     return $this->db->get_where('user');
     }
 
@@ -52,9 +57,9 @@ class m_manajer extends CI_Model{
       }
 
   function lihatJadwalShift(){
-    $this->db->order_by('jam_masuk','ASC');
-    $this->db->group_by('jam_masuk');
-    $this->db->join('user', 'user.id_user = jadwal_shift.id_user');
+    // $this->db->order_by('jam_masuk','ASC');
+    // $this->db->group_by('jam_masuk');
+    // $this->db->join('user', 'user.id_user = jadwal_shift.id_user');
     return $this->db->get('jadwal_shift')->result();
   }
 

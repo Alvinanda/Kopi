@@ -38,7 +38,7 @@
                         <h6 class="collapse-header">Tambahkan data:</h6>
                         <a class="collapse-item" href="<?= base_url('manajer/tambahStarMember') ?>">Star Member</a>
                         <a class="collapse-item" href="<?= base_url('manajer/tambahBahanbaku') ?>">Bahan Baku</a>
-                        <a class="collapse-item" href="<?= base_url('manajer/tambahJadwalShift') ?>">Jadwal Shift</a>
+                        <a class="collapse-item" href="<?= base_url('manajer/tambahShift') ?>">Shift</a>
                     </div>
                 </div>
             </li>
@@ -53,7 +53,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Lihat data:</h6>
                         <a class="collapse-item" href="<?= base_url('manajer/lihatStarMember') ?>">Star Member</a>
-                        <a class="collapse-item" href="<?= base_url('manajer/lihatMenuBar') ?>">Menu Bar</a>
+                        <a class="collapse-item" href="<?= base_url('manajer/lihatBahanBaku') ?>">Bahan Baku</a>
+                        <a class="collapse-item" href="<?= base_url('manajer/lihatShift') ?>">Shift</a>
                         <a class="collapse-item" href="<?= base_url('manajer/lihatJadwalShift') ?>">Jadwal Shift</a>
                     </div>
                 </div>

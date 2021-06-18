@@ -3,15 +3,15 @@
 
  Source Server         : Databse
  Source Server Type    : MySQL
- Source Server Version : 100418
+ Source Server Version : 100419
  Source Host           : localhost:3306
  Source Schema         : kopi
 
  Target Server Type    : MySQL
- Target Server Version : 100418
+ Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 16/06/2021 23:32:08
+ Date: 18/06/2021 11:12:40
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,7 @@ CREATE TABLE `absensi`  (
   `checkout` timestamp NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_absen`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of absensi
@@ -47,7 +47,7 @@ CREATE TABLE `bahan_baku`  (
   `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `outlet` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_bahan`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bahan_baku
@@ -67,7 +67,7 @@ CREATE TABLE `inventaris`  (
   `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `id_outlet` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_barang`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of inventaris
@@ -81,20 +81,16 @@ CREATE TABLE `jadwal_shift`  (
   `id_jadwal` int NOT NULL AUTO_INCREMENT,
   `id_user` int NULL DEFAULT NULL,
   `id_outlet` int NULL DEFAULT NULL,
-  `jam_masuk` time NULL DEFAULT NULL,
-  `jam_selesai` time NULL DEFAULT NULL,
+  `kode_shift` int NULL DEFAULT NULL,
+  `hari` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_jadwal`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of jadwal_shift
 -- ----------------------------
-INSERT INTO `jadwal_shift` VALUES (1, 3, 2, '20:00:00', '09:00:00');
-INSERT INTO `jadwal_shift` VALUES (2, 8, 2, '09:00:00', '22:00:00');
-INSERT INTO `jadwal_shift` VALUES (3, 12, 2, '08:00:00', '22:00:00');
-INSERT INTO `jadwal_shift` VALUES (4, 12, 2, '08:00:00', '22:00:00');
-INSERT INTO `jadwal_shift` VALUES (5, 13, 2, '09:00:00', '22:00:00');
-INSERT INTO `jadwal_shift` VALUES (6, 13, 2, '09:00:00', '22:00:00');
+INSERT INTO `jadwal_shift` VALUES (9, 1, 2, 1, NULL);
+INSERT INTO `jadwal_shift` VALUES (10, 3, 2, 2, NULL);
 
 -- ----------------------------
 -- Table structure for menu_bar
@@ -107,7 +103,7 @@ CREATE TABLE `menu_bar`  (
   `harga` int NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_menu`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_bar
@@ -127,7 +123,7 @@ CREATE TABLE `menu_retail`  (
   `outlet` int NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_retail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_retail
@@ -148,7 +144,7 @@ CREATE TABLE `outlet`  (
   `jam_buka` time NULL DEFAULT NULL,
   `jam_tutup` time NULL DEFAULT NULL,
   PRIMARY KEY (`id_outlet`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of outlet
@@ -170,13 +166,32 @@ CREATE TABLE `pengeluaran`  (
   `outlet` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `tanggal_transaksi` date NULL DEFAULT NULL,
   PRIMARY KEY (`id_pengeluaran`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pengeluaran
 -- ----------------------------
 INSERT INTO `pengeluaran` VALUES (1, 'Beli Gula ', 1000000, 'credit', '2', '2021-05-30');
 INSERT INTO `pengeluaran` VALUES (2, 'Beli Nasi', 100000, 'debit', '1', '2021-05-30');
+
+-- ----------------------------
+-- Table structure for shift
+-- ----------------------------
+DROP TABLE IF EXISTS `shift`;
+CREATE TABLE `shift`  (
+  `id_shift` int NOT NULL AUTO_INCREMENT,
+  `kode_shift` int NULL DEFAULT NULL,
+  `jam_masuk` time NULL DEFAULT NULL,
+  `jam_selesai` time NULL DEFAULT NULL,
+  `outlet` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id_shift`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of shift
+-- ----------------------------
+INSERT INTO `shift` VALUES (1, 1, '08:00:00', '17:00:00', 2);
+INSERT INTO `shift` VALUES (3, 2, '17:00:00', '00:00:00', 2);
 
 -- ----------------------------
 -- Table structure for user
@@ -194,7 +209,7 @@ CREATE TABLE `user`  (
   `jabatan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `outlet` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_user`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user

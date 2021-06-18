@@ -182,6 +182,73 @@
   }
   // end of Bahan Baku
 
+  //start of Shift
+  function tambahShift(){
+    $this->load->view('manajer/v_tambahShift', );
+    $this->load->view('layouts/footer');
+  }
+
+  function tambahkanShift(){
+    $kode_shift= $this->input->post('kode_shift');
+    $jam_masuk= $this->input->post('jam_masuk');
+    $jam_selesai= $this->input->post('jam_selesai');
+    $id_outlet= $this->session->userdata('outlet');
+
+
+    $data = array(
+      'kode_shift' => $kode_shift,
+      'jam_masuk' => $jam_masuk,
+      'jam_selesai' => $jam_selesai,
+      'outlet' => $id_outlet
+    );
+    $this->m_manajer->tambahdata($data,'shift');
+    redirect('manajer/lihatShift');
+  }
+
+  function lihatShift(){
+    $outlet= $this->session->userdata('outlet');
+    $data['shift'] = $this->m_manajer->tampilShift($outlet)->result();
+    $this->load->view('manajer/v_lihatShift', $data);
+    $this->load->view('layouts/footer');
+  }
+
+  function updateShift($id_shift){
+    $where = array('id_shift' => $id_shift);
+    $data['bahan_baku'] = $this->m_manajer->edit_data($where,'shift')->result();
+    $this->load->view('manajer/v_editShift', $data);
+    $this->load->view('layouts/footer');
+  }
+
+  function editShift(){
+    $id_shift = $this->input->post('id_shift');
+    $kode_shift= $this->input->post('kode_shift');
+    $jam_masuk= $this->input->post('jam_masuk');
+    $jam_selesai= $this->input->post('jam_selesai');
+    $id_outlet= $this->session->userdata('outlet');
+
+    $data = array(
+      'kode_shift' => $kode_shift,
+      'jam_masuk' => $jam_masuk,
+      'jam_selesai' => $jam_selesai,
+      'outlet' => $id_outlet
+    );
+
+    $where = array('id_shift' => $id_shift);
+    $this->m_manajer->update_data($where,$data,'shift');
+    redirect('manajer/lihatShift');
+  }
+
+  function hapusShift($id_shift){
+    $where = array('id_shift' => $id_shift);
+    $this->m_manajer->hapus_data($where,'shift');
+    redirect('manajer/lihatShift');
+  }
+
+
+
+ // end of Shift
+
+
   // start of Jadwal Shift
   function tambahJadwalShift(){
     $outlet = $this->session->userdata('outlet');
@@ -192,16 +259,17 @@
 
   function tambahkanjadwalShift(){
     $id_user= $this->input->post('id_user');
-    $jam_masuk= $this->input->post('jam_masuk');
-    $jam_selesai= $this->input->post('jam_selesai');
+    $kode_shift= $this->input->post('kode_shift');
+    //$jam_selesai= $this->input->post('jam_selesai');
     $id_outlet= $this->session->userdata('outlet');
 
 
     $data = array(
       'id_user' => $id_user,
-      'jam_masuk' => $jam_masuk,
-      'jam_selesai' => $jam_selesai,
-      'id_outlet' => $id_outlet
+      'id_outlet' => $id_outlet,
+      'kode_shift' => $kode_shift
+      //'jam_selesai' => $jam_selesai,
+
     );
     $this->m_manajer->tambahdata($data,'jadwal_shift');
     redirect('manajer/lihatJadwalShift');
@@ -209,9 +277,46 @@
 
   function lihatJadwalShift(){
     $outlet= $this->session->userdata('outlet');
-    $data['bahan_baku'] = $this->m_manajer->tampilBahanBaku($outlet)->result();
-    $data['jadwal_shift'] = $this->m_manajer->lihatJadwalShift();
+    $data['user'] = $this->m_manajer->tampilPegawai($outlet)->result();
+    $data['shift'] = $this->m_manajer->tampilShift($outlet)->result();
+    //$data['jadwal_shift'] = $this->m_manajer->lihatJadwalShift();
     $this->load->view('manajer/v_lihatJadwalShift',$data);
     $this->load->view('layouts/footer');
   }
+
+  function updateJadwalShift($id_jadwal){
+    $where = array('id_jadwal' => $id_jadwal);
+    $data['jadwal'] = $this->m_manajer->edit_data($where,'jadwal_shift')->result();
+    $this->load->view('manajer/v_editJadwalShift', $data);
+    $this->load->view('layouts/footer');
+  }
+
+  function editJadwalShift(){
+    $id_jadwal = $this->input->post('id_jadwal');
+    $id_user= $this->input->post('id_user');
+    $kode_shift= $this->input->post('kode_shift');
+    //$jam_selesai= $this->input->post('jam_selesai');
+    $id_outlet= $this->session->userdata('outlet');
+
+    $data = array(
+      'id_user' => $id_user,
+      'id_outlet' => $id_outlet,
+      'kode_shift' => $kode_shift
+      //'jam_selesai' => $jam_selesai,
+    );
+
+    $where = array('id_jadwal' => $id_jadwal);
+    $this->m_manajer->update_data($where,$data,'jadwal_shift');
+    redirect('manajer/lihatJadwalShift');
+  }
+
+  function hapusJadwalShift($id_jadwal){
+    $where = array('id_jadwal' => $id_jadwal);
+    $this->m_manajer->hapus_data($where,'jadwal_shift');
+    redirect('manajer/lihatJadwalShift');
+  }
+
+  //End of Jadwal Shift 
+
+
  }
