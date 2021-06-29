@@ -15,7 +15,10 @@
  	}
 
   function index(){
-    $this->load->view('manajer/index');
+    $outlet= $this->session->userdata('outlet');
+    $id_user= $this->session->userdata('id_user');
+    $data['jadwal'] = $this->m_manajer->lihatJadwalShiftUser($id_user);
+    $this->load->view('manajer/index', $data);
     $this->load->view('layouts/footer');
   }
 
@@ -252,6 +255,8 @@
   // start of Jadwal Shift
   function tambahJadwalShift(){
     $outlet = $this->session->userdata('outlet');
+    $data['shift'] = $this->m_manajer->tampilShift($outlet)->result();
+    $data['hari'] = $this->m_manajer->lihatHari($outlet)->result();
     $data['pegawai'] = $this->m_manajer->tampilPegawai($outlet)->result();
     $this->load->view('manajer/v_tambahJadwalShift', $data);
     $this->load->view('layouts/footer');
@@ -260,15 +265,15 @@
   function tambahkanjadwalShift(){
     $id_user= $this->input->post('id_user');
     $kode_shift= $this->input->post('kode_shift');
-    //$jam_selesai= $this->input->post('jam_selesai');
+    $hari= $this->input->post('hari');
     $id_outlet= $this->session->userdata('outlet');
 
 
     $data = array(
       'id_user' => $id_user,
       'id_outlet' => $id_outlet,
-      'kode_shift' => $kode_shift
-      //'jam_selesai' => $jam_selesai,
+      'kode_shift' => $kode_shift,
+      'hari' => $hari
 
     );
     $this->m_manajer->tambahdata($data,'jadwal_shift');
@@ -280,18 +285,18 @@
     $data['user'] = $this->m_manajer->tampilPegawai($outlet)->result();
     $data['shift'] = $this->m_manajer->tampilShift($outlet)->result();
     $data['jadwal'] = $this->m_manajer->tampilJadwalShift()->result();
-    // echo '<pre>';
-    // var_dump($data['jadwal']);
-    // echo '</pre>';    
-    // die;
-    // $data['jadwal_shift'] = $this->m_manajer->lihatJadwalShift();
+    $data['hari'] = $this->m_manajer->lihatHari()->result();
     $this->load->view('manajer/v_lihatJadwalShift',$data);
     $this->load->view('layouts/footer');
   }
 
   function updateJadwalShift($id_jadwal){
+    $outlet= $this->session->userdata('outlet');
     $where = array('id_jadwal' => $id_jadwal);
     $data['jadwal'] = $this->m_manajer->edit_data($where,'jadwal_shift')->result();
+    $data['shift'] = $this->m_manajer->tampilShift($outlet)->result();
+    $data['hari'] = $this->m_manajer->lihatHari($outlet)->result();
+    $data['pegawai'] = $this->m_manajer->tampilPegawai($outlet)->result();
     $this->load->view('manajer/v_editJadwalShift', $data);
     $this->load->view('layouts/footer');
   }
@@ -300,14 +305,14 @@
     $id_jadwal = $this->input->post('id_jadwal');
     $id_user= $this->input->post('id_user');
     $kode_shift= $this->input->post('kode_shift');
-    //$jam_selesai= $this->input->post('jam_selesai');
+    $hari= $this->input->post('hari');
     $id_outlet= $this->session->userdata('outlet');
 
     $data = array(
       'id_user' => $id_user,
       'id_outlet' => $id_outlet,
-      'kode_shift' => $kode_shift
-      //'jam_selesai' => $jam_selesai,
+      'kode_shift' => $kode_shift,
+      'hari' => $hari
     );
 
     $where = array('id_jadwal' => $id_jadwal);
@@ -321,7 +326,96 @@
     redirect('manajer/lihatJadwalShift');
   }
 
-  //End of Jadwal Shift 
+  //End of Jadwal Shift
+
+  //start of Absensi
+
+  function lihatAbsen(){
+    $outlet= $this->session->userdata('outlet');
+    $id_user= $this->session->userdata('id_user');
+    $data['jadwal'] = $this->m_manajer->lihatJadwalShiftUser($id_user);
+
+    // echo "<pre>";
+    // var_dump($data); die;
+    // echo "</pre>";
+    $this->load->view('manajer/index',$data);
+    $this->load->view('layouts/footer');
+  }
+
+  function checkIn($id_jadwal){
+    $outlet   = $this->session->userdata('outlet');
+    $id_user  = $this->session->userdata('id_user');
+    $checkin  = date('Y-m-d H:i:s');
+    $status   = 'belum divalidasi';
+
+    $data = array(
+      'id_user' => $id_user,
+      'id_outlet' => $outlet,
+      'id_jadwal' => $id_jadwal,
+      'checkin' => $checkin,
+      'status' => $status
+    );
+
+    $this->m_manajer->tambahdata($data,'absensi');
+    redirect('manajer/index');
+  }
+
+  function checkOut($id_jadwal){
+    $outlet   = $this->session->userdata('outlet');
+    $id_user  = $this->session->userdata('id_user');
+    $checkout  = date('Y-m-d H:i:s');
+    $status   = 'belum divalidasi';
+
+    $data = array(
+      'id_user' => $id_user,
+      'id_outlet' => $outlet,
+      'id_jadwal' => $id_jadwal,
+      'checkout' => $checkout,
+      'status' => $status
+    );
+
+    $where = array('id_jadwal' => $id_jadwal);
+    $this->m_manajer->update_data($where,$data,'absensi');
+    redirect('manajer/index');
+  }
+
+  function lihatValidasi(){
+    $outlet= $this->session->userdata('outlet');
+    $data['absensi'] = $this->m_manajer->tampilAbsensi($outlet);
+    $this->load->view('manajer/v_lihatValidasiAbsensi', $data);
+    $this->load->view('layouts/footer');
+  }
+
+  function validasiAbsensi($id_absen){
+    $outlet   = $this->session->userdata('outlet');
+    $status   = 'sudah divalidasi';
+
+    $data = array(
+      'status' => $status
+    );
+
+    $where = array('id_absen' => $id_absen);
+    $this->m_manajer->update_data($where,$data,'absensi');
+    redirect('manajer/lihatValidasi');
+  }
+
+  //end of absensi
+
+  //start of menu
+
+  function lihatMenuBar(){
+    $outlet= $this->session->userdata('outlet');
+    $data['menu_bar'] = $this->m_manajer->tampilMenuBar($outlet)->result();
+    $this->load->view('manajer/v_lihatMenuBar', $data);
+    $this->load->view('layouts/footer');
+  }
+
+  function lihatMenuRetail(){
+    $outlet= $this->session->userdata('outlet');
+    $data['menu_retail'] = $this->m_manajer->tampilMenuRetail($outlet)->result();
+    $this->load->view('manajer/v_lihatMenuRetail', $data);
+    $this->load->view('layouts/footer');
+  }
 
 
  }

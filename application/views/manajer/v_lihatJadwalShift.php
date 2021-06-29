@@ -6,29 +6,27 @@
 		<div class="container-fluid">
 			<!-- Page Heading -->
 			<h1 class="h3 mb-2 text-gray-800">Jadwal Shift</h1>
-			<?php $hari = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];?>
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
 						<?php foreach($hari as $h){ ?>
-						<th scope="col"><?= $h ?></th>
+						<th scope="col"><?= $h->hari ?></th>
 						<?php } ?>
 					</tr>
 				</thead>
 				<tbody>
 					<?php for($i=0;$i<count($shift);$i++){?>
 					<tr>
-						<th><?= $shift[$i]->jam_masuk ?></th>
+						<th><?= $shift[$i]->jam_masuk .'-'. $shift[$i]->jam_selesai ?></th>
 						<?php foreach($hari as $h){ ?>
 						<td>
 							<?php for($j=0;$j<count($jadwal);$j++){ ?>
-							<?php if($hari[$jadwal[$j]->hari] == $h){ ?>
-							<div onclick='editShift("<?= $jadwal[$j]->id_jadwal ?>")'>
-								<?= ($jadwal[$j]->kode_shift == $shift[$i]->kode_shift ? $jadwal[$j]->nama:'') ?>
-							</div>
-							<?php } ?>
-							<?php } ?>
+							<?php if($jadwal[$j]->hari == $h->id){
+								 if($jadwal[$j]->kode_shift == $shift[$i]->kode_shift){ ?>
+							<button class="btn btn-primary"
+								onclick='editShift("<?= $jadwal[$j]->id_jadwal ?>")'><?= $jadwal[$j]->nama ?></button>
+							<?php }} } ?>
 						</td>
 						<?php } ?>
 					</tr>
@@ -49,8 +47,8 @@
 						</button>
 					</div>
 					<div class="modal-body d-flex justify-content-around">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-						<button type="button" onclick="btnDelete()" class="btn btn-primary">Delete</button>
+						<a id="btnEdit" class="btn btn-secondary" >Edit</a>
+						<button type="button" id="btnDelete" class="btn btn-primary">Delete</button>
 					</div>
 				</div>
 			</div>
@@ -71,7 +69,8 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<a href="<?= base_url('manajer/hapusJadwalShift/')?>" class="btn btn-primary"
+						id="confirmDelete">Delete</a>
 				</div>
 			</div>
 		</div>
@@ -81,12 +80,19 @@
 
 <script>
 	function editShift(id) {
+		const baseUrl = "<?= base_url('manajer')?>";
 		$('#actionShift').modal();
+		$('#btnDelete').removeAttr('onclick');
+		$('#btnDelete').attr('onclick', 'btnDelete(' + id + ')');
+		$('#btnEdit').removeAttr('href');
+		$('#btnEdit').attr('href', baseUrl + '/updateJadwalShift/' + id);
 	}
 
-	function btnDelete() {
+	function btnDelete(id) {
 		$('#actionShift').modal('hide');
 		$('#actionDelete').modal();
+		let confirmDelete = $('#confirmDelete').attr('href');
+		$('#confirmDelete').attr('href', confirmDelete + id);
 	}
 
 </script>

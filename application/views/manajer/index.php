@@ -88,5 +88,26 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Absensi -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-s font-weight-bold text-primary text-uppercase mb-1">
+                                            Absensi</div>
+                                            <?php foreach($jadwal as $j) : ?>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <?php if($j->hari_en == date("l"))  echo $j->jam_masuk .'-'. $j->jam_selesai   ?></div>
+                                         <?php endforeach; ?>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a href="<?= base_url('manajer/checkIn/'.$j->id_jadwal); ?>" type="button" class="btn btn-primary btn-icon-split"> Check in </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->

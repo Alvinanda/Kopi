@@ -11,7 +11,7 @@
  Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 18/06/2021 11:12:40
+ Date: 29/06/2021 22:14:43
 */
 
 SET NAMES utf8mb4;
@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `absensi`;
 CREATE TABLE `absensi`  (
-  `id_absen` int NOT NULL,
+  `id_absen` int NOT NULL AUTO_INCREMENT,
   `id_user` int NULL DEFAULT NULL,
   `id_outlet` int NULL DEFAULT NULL,
   `id_jadwal` int NULL DEFAULT NULL,
@@ -30,11 +30,13 @@ CREATE TABLE `absensi`  (
   `checkout` timestamp NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_absen`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of absensi
 -- ----------------------------
+INSERT INTO `absensi` VALUES (1, 3, 2, 15, '2021-06-28 18:30:37', '2021-06-29 15:04:05', 'sudah divalidasi');
+INSERT INTO `absensi` VALUES (2, 3, 2, 15, '2021-06-29 15:03:18', '2021-06-29 15:04:05', 'sudah divalidasi');
 
 -- ----------------------------
 -- Table structure for bahan_baku
@@ -54,6 +56,28 @@ CREATE TABLE `bahan_baku`  (
 -- ----------------------------
 INSERT INTO `bahan_baku` VALUES (1, 'Kopi arjuna', 10, 'sudah terbayar', 2);
 INSERT INTO `bahan_baku` VALUES (2, 'Kopi arjuna', 10, 'sudah terbayar', 2);
+
+-- ----------------------------
+-- Table structure for hari
+-- ----------------------------
+DROP TABLE IF EXISTS `hari`;
+CREATE TABLE `hari`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `hari` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `hari_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hari
+-- ----------------------------
+INSERT INTO `hari` VALUES (1, 'minggu', 'Sunday');
+INSERT INTO `hari` VALUES (2, 'senin', 'Monday');
+INSERT INTO `hari` VALUES (3, 'selasa', 'Tuesday');
+INSERT INTO `hari` VALUES (4, 'rabu', 'Wednesday');
+INSERT INTO `hari` VALUES (5, 'kamis', 'Thrusday');
+INSERT INTO `hari` VALUES (6, 'jumat', 'Friday');
+INSERT INTO `hari` VALUES (7, 'sabtu', 'Saturday');
 
 -- ----------------------------
 -- Table structure for inventaris
@@ -82,15 +106,17 @@ CREATE TABLE `jadwal_shift`  (
   `id_user` int NULL DEFAULT NULL,
   `id_outlet` int NULL DEFAULT NULL,
   `kode_shift` int NULL DEFAULT NULL,
-  `hari` date NULL DEFAULT NULL,
+  `hari` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_jadwal`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of jadwal_shift
 -- ----------------------------
-INSERT INTO `jadwal_shift` VALUES (9, 1, 2, 1, NULL);
-INSERT INTO `jadwal_shift` VALUES (10, 3, 2, 2, NULL);
+INSERT INTO `jadwal_shift` VALUES (10, 3, 2, 2, 3);
+INSERT INTO `jadwal_shift` VALUES (13, 15, 2, 2, 3);
+INSERT INTO `jadwal_shift` VALUES (14, 14, 2, 2, 6);
+INSERT INTO `jadwal_shift` VALUES (15, 3, 2, 1, 1);
 
 -- ----------------------------
 -- Table structure for menu_bar

@@ -39,6 +39,7 @@
                         <a class="collapse-item" href="<?= base_url('manajer/tambahStarMember') ?>">Star Member</a>
                         <a class="collapse-item" href="<?= base_url('manajer/tambahBahanbaku') ?>">Bahan Baku</a>
                         <a class="collapse-item" href="<?= base_url('manajer/tambahShift') ?>">Shift</a>
+                        <a class="collapse-item" href="<?= base_url('manajer/tambahJadwalShift') ?>">Jadwal Shift</a>
                     </div>
                 </div>
             </li>
@@ -56,6 +57,9 @@
                         <a class="collapse-item" href="<?= base_url('manajer/lihatBahanBaku') ?>">Bahan Baku</a>
                         <a class="collapse-item" href="<?= base_url('manajer/lihatShift') ?>">Shift</a>
                         <a class="collapse-item" href="<?= base_url('manajer/lihatJadwalShift') ?>">Jadwal Shift</a>
+                        <a class="collapse-item" href="<?= base_url('manajer/lihatValidasi') ?>">Validasi Absensi</a>
+                        <a class="collapse-item" href="<?= base_url('manajer/lihatMenuBar') ?>">Menu Bar</a>
+                        <a class="collapse-item" href="<?= base_url('manajer/lihatMenuRetail') ?>">Menu Retail</a>
                     </div>
                 </div>
             </li>

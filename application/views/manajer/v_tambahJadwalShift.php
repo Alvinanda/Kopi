@@ -30,17 +30,29 @@
                         </div>
                         </div>
                         <div class="form-group row">
-                          <label for="formGroupExampleInput2" class="col-sm-2 col-form-label">Jam Masuk</label>
+                          <label for="formGroupExampleInput2" class="col-sm-2 col-form-label">Shift</label>
                           <div class="col-sm-10">
-                          <input required type="time" class="form-control" name="jam_masuk" id="formGroupExampleInput2" placeholder="">
+                            <select class="form-control" id="exampleInputEmail1" name="kode_shift">
+              								 <option selected="0">select..</option>
+              								 <?php foreach($shift as $x) : ?>
+              									<option value="<?php echo $x->kode_shift;?>"> <?php echo $x->jam_masuk .'-'. $x->jam_selesai; ?></option>
+              								 <?php endforeach; ?>
+              								</select>
+              							<small id="emailHelp" class="form-text text-muted">Pilih shift yang ingin dijadwalkan</small>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="formGroupExampleInput2" class="col-sm-2 col-form-label">Jam Selesai</label>
+                        <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Hari</label>
                         <div class="col-sm-10">
-                        <input required type="time" class="form-control" name="jam_selesai" id="formGroupExampleInput2" placeholder="">
+                          <select class="form-control" id="exampleInputEmail1" name="hari">
+                             <option selected="0">select..</option>
+                             <?php foreach($hari as $h) : ?>
+                              <option value="<?php echo $h->id;?>"> <?php echo $h->hari; ?></option>
+                             <?php endforeach; ?>
+                            </select>
+                          <small id="emailHelp" class="form-text text-muted">Pilih hari shift yang ingin dijadwalkan</small>
+                        </div>
                       </div>
-                    </div>
                         <div class="form-group row">
                           <label for="formGroupExampleInput2" class="col-sm-2 col-form-label">Outlet</label>
                           <div class="col-sm-10">

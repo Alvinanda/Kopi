@@ -42,7 +42,7 @@ class m_manajer extends CI_Model{
       $this->db->select('*');
       $this->db->from('jadwal_shift j');
       $this->db->join('user u', 'u.id_user = j.id_user');
-      $this->db->order_by("hari", "asc"); 
+      $this->db->order_by("hari", "asc");
       // $this->db->order_by('kode_shift','asc');
       return $this->db->get();
     }
@@ -79,6 +79,29 @@ class m_manajer extends CI_Model{
     // $this->db->group_by('jam_masuk');
     // $this->db->join('user', 'user.id_user = jadwal_shift.id_user');
     return $this->db->get('jadwal_shift')->result();
+  }
+
+  function lihatJadwalShiftUser($id){
+    $this->db->select('j.id_jadwal, j.id_user, s.jam_masuk, s.jam_selesai, h.hari, h.hari_en');
+    $this->db->from('jadwal_shift j');
+    $this->db->join('shift s', 's.kode_shift = j.kode_shift');
+    $this->db->join('hari h', 'h.id = j.hari');
+    $this->db->where('j.id_user',$id);
+    return $this->db->get()->result();
+  }
+
+  function tampilAbsensi($outlet){
+    $this->db->select('a.id_absen, u.nama, s.jam_masuk, s.jam_selesai, a.checkin, a.checkout, a.status');
+    $this->db->from('absensi a');
+    $this->db->join('user u', 'u.id_user = a.id_user');
+    $this->db->join('jadwal_shift j', 'j.id_jadwal = a.id_jadwal');
+    $this->db->join('shift s', 's.kode_shift = j.kode_shift');
+    $this->db->where('a.id_outlet',$outlet);
+    return $this->db->get()->result();
+  }
+
+  function lihatHari(){
+    return $this->db->get('hari');
   }
 
 }
