@@ -3,7 +3,7 @@
  class Manajer extends CI_Controller{
    function __construct(){
  		parent::__construct();
- 		$this->load->helper('url');
+ 		$this->load->helper(['url','date']);
  		$this->load->model('m_auth');
     $this->load->model('m_manajer');
  		$this->load->library('form_validation');
@@ -18,6 +18,8 @@
     $outlet= $this->session->userdata('outlet');
     $id_user= $this->session->userdata('id_user');
     $data['jadwal'] = $this->m_manajer->lihatJadwalShiftUser($id_user);
+    // $hari = $this->m_manajer->lihatHari();
+    $data['check_shift'] = check_shift($data['jadwal']);
     $this->load->view('manajer/index', $data);
     $this->load->view('layouts/footer');
   }
@@ -345,6 +347,10 @@
   function checkIn($id_jadwal){
     $outlet   = $this->session->userdata('outlet');
     $id_user  = $this->session->userdata('id_user');
+    $jadwal = $this->m_manajer->lihatJadwalShiftUser($id_user);
+    if(!check_shift($jadwal)){
+      redirect('manajer/index');
+    }
     $checkin  = date('Y-m-d H:i:s');
     $status   = 'belum divalidasi';
 
