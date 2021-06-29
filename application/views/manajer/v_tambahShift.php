@@ -1,5 +1,9 @@
+<link rel="stylesheet"
+	href="<?= base_url('assets/vendor/datetimepicker/pc-bootstrap4-datetimepicker/build/css/bootstrap-datetimepicker.min.css')?>" />
+<link rel="stylesheet"
+	href="<?= base_url('assets/vendor/datetimepicker/bootstrap/dist/fonts/glyphicons-halflings-regular.woff')?>">
 <!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
+<div id=" content-wrapper" class="d-flex flex-column">
 
 	<!-- Main Content -->
 	<div id="content">
@@ -24,14 +28,15 @@
 				<div class="form-group row">
 					<label for="formGroupExampleInput2" class="col-sm-2 col-form-label">Jam Masuk</label>
 					<div class="col-sm-10">
-						<input required type="time" class="input-time form-control" id="jam_masuk" name="jam_masuk" placeholder="">
+						<input required type='text' class="form-control" id="jam_masuk" name="jam_masuk"
+							placeholder="<?= date('H:i:s')?>">
 					</div>
 				</div>
 				<div class="form-group row">
 					<label for="formGroupExampleInput2" class="col-sm-2 col-form-label">Jam Selesai</label>
 					<div class="col-sm-10">
-						<input required type="time" class="input-time form-control" id="jam_selesai" name="jam_selesai"
-							placeholder="">
+						<input required type="tex" class="form-control" id="jam_selesai" name="jam_selesai"
+							placeholder="<?= date('H:i:s')?>">
 					</div>
 				</div>
 				<div class="form-group row">
@@ -43,11 +48,32 @@
 							id="formGroupExampleInput2" placeholder="">
 					</div>
 				</div>
-
-
-				<button type="submit" class="btn btn-primary btn-icon-split"> submit</button>
+				<button type="submit" class="btn btn-primary"> submit</button>
 
 			</form>
 
 		</div>
 		<!-- /.container-fluid -->
+		<script type="text/javascript" src="<?= base_url('assets/vendor/datetimepicker/moment/moment.js')?>"></script>
+		<script type="text/javascript"
+			src="<?= base_url('assets/vendor/datetimepicker/bootstrap/js/dist/transition.js')?>">
+		</script>
+		<script type="text/javascript"
+			src="<?= base_url('assets/vendor/datetimepicker/bootstrap/js/dist/collapse.js')?>">
+		</script>
+		<script type="text/javascript"
+			src="<?= base_url('assets/vendor/datetimepicker/pc-bootstrap4-datetimepicker/build/js/bootstrap-datetimepicker.min.js')?>">
+		</script>
+		<script script type="text/javascript">
+			$(function () {
+				$('#jam_masuk').datetimepicker({
+					format: 'HH:mm:ss',
+					locale: 'id'
+				});
+				$('#jam_selesai').datetimepicker({
+					format: 'HH:mm:ss',
+					locale: 'id'
+				});
+			});
+
+		</script>
