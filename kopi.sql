@@ -11,7 +11,7 @@
  Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 29/06/2021 22:14:43
+ Date: 04/07/2021 14:36:05
 */
 
 SET NAMES utf8mb4;
@@ -30,13 +30,14 @@ CREATE TABLE `absensi`  (
   `checkout` timestamp NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_absen`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of absensi
 -- ----------------------------
 INSERT INTO `absensi` VALUES (1, 3, 2, 15, '2021-06-28 18:30:37', '2021-06-29 15:04:05', 'sudah divalidasi');
 INSERT INTO `absensi` VALUES (2, 3, 2, 15, '2021-06-29 15:03:18', '2021-06-29 15:04:05', 'sudah divalidasi');
+INSERT INTO `absensi` VALUES (3, 14, 2, 14, '2021-06-30 20:16:30', NULL, 'belum divalidasi');
 
 -- ----------------------------
 -- Table structure for bahan_baku
@@ -56,6 +57,30 @@ CREATE TABLE `bahan_baku`  (
 -- ----------------------------
 INSERT INTO `bahan_baku` VALUES (1, 'Kopi arjuna', 10, 'sudah terbayar', 2);
 INSERT INTO `bahan_baku` VALUES (2, 'Kopi arjuna', 10, 'sudah terbayar', 2);
+
+-- ----------------------------
+-- Table structure for detail_penjualan
+-- ----------------------------
+DROP TABLE IF EXISTS `detail_penjualan`;
+CREATE TABLE `detail_penjualan`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_penjualan` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `id_menu` int NULL DEFAULT NULL,
+  `jumlah` int NULL DEFAULT NULL,
+  `id_outlet` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of detail_penjualan
+-- ----------------------------
+INSERT INTO `detail_penjualan` VALUES (1, '20210702288', 5, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (2, '20210702288', 1, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (3, '20210702288', 1, 4, 2);
+INSERT INTO `detail_penjualan` VALUES (4, '20210702288', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (7, '20210703214', 1, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (10, '20210703214', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (11, '20210703214', 1, 1, 2);
 
 -- ----------------------------
 -- Table structure for hari
@@ -115,7 +140,7 @@ CREATE TABLE `jadwal_shift`  (
 -- ----------------------------
 INSERT INTO `jadwal_shift` VALUES (10, 3, 2, 2, 3);
 INSERT INTO `jadwal_shift` VALUES (13, 15, 2, 2, 3);
-INSERT INTO `jadwal_shift` VALUES (14, 14, 2, 2, 6);
+INSERT INTO `jadwal_shift` VALUES (14, 14, 2, 2, 4);
 INSERT INTO `jadwal_shift` VALUES (15, 3, 2, 1, 1);
 
 -- ----------------------------
@@ -134,7 +159,7 @@ CREATE TABLE `menu_bar`  (
 -- ----------------------------
 -- Records of menu_bar
 -- ----------------------------
-INSERT INTO `menu_bar` VALUES (1, 'Coffe Latte edit', 2, 1000001, 'tersedia');
+INSERT INTO `menu_bar` VALUES (1, 'Coffe Latte edit', 2, 10000, 'tersedia');
 INSERT INTO `menu_bar` VALUES (4, 'Kopi susu', 1, 1000, 'tersedia');
 INSERT INTO `menu_bar` VALUES (5, 'Kopi Arjuna class D 10 gram edit', 2, 1000, 'tersedia');
 
@@ -199,6 +224,28 @@ CREATE TABLE `pengeluaran`  (
 -- ----------------------------
 INSERT INTO `pengeluaran` VALUES (1, 'Beli Gula ', 1000000, 'credit', '2', '2021-05-30');
 INSERT INTO `pengeluaran` VALUES (2, 'Beli Nasi', 100000, 'debit', '1', '2021-05-30');
+
+-- ----------------------------
+-- Table structure for penjualan
+-- ----------------------------
+DROP TABLE IF EXISTS `penjualan`;
+CREATE TABLE `penjualan`  (
+  `id_penjualan` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nama_pembeli` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `tanggal` timestamp NULL DEFAULT NULL,
+  `id_user` int NULL DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `id_outlet` int NULL DEFAULT NULL,
+  `star_member` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id_penjualan`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of penjualan
+-- ----------------------------
+INSERT INTO `penjualan` VALUES ('20210702224', 'sisil', '2021-07-02 21:05:57', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('20210702288', 'sisil', '2021-07-02 21:06:08', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('20210703214', 'juni', '2021-07-03 11:58:30', 14, 'Sudah Dibayar', 2, 'Tidak');
 
 -- ----------------------------
 -- Table structure for shift

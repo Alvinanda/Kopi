@@ -24,8 +24,7 @@
 							<?php for($j=0;$j<count($jadwal);$j++){ ?>
 							<?php if($jadwal[$j]->hari == $h->id){
 								 if($jadwal[$j]->kode_shift == $shift[$i]->kode_shift){ ?>
-							<button class="btn btn-primary mb-1"
-								onclick='editShift("<?= $jadwal[$j]->id_jadwal ?>")'><?= $jadwal[$j]->nama ?></button> <br/>
+							<span class="badge badge-pill badge-primary"> <?= $jadwal[$j]->nama ?></span> <br/>
 							<?php }} } ?>
 						</td>
 						<?php } ?>
