@@ -100,12 +100,14 @@
 				</div>
 				<div class="col-auto">
 					<?php if($check_shift){ ?>
-					<a href="<?= base_url('manajer/checkIn/'.$j->id_jadwal); ?>" <?= !$check_shift ? 'disabled':'' ?>
-						class="btn btn-primary">
+					<a href="<?= base_url('manajer/checkIn/'.$j->id_jadwal); ?>" class="btn btn-primary">
 						Check in </a>
+					<?php }else{if($absen){	?>
+					<a href="<?= base_url('manajer/checkOut/'.$j->id_jadwal); ?>" class="btn btn-primary">
+						Check out </a>
 					<?php }else{ ?>
-					<button disabled class="btn btn-primary">Check in </button>
-					<?php } ?>
+					<button disabled class="btn btn-primary">Check in</button>
+					<?php }} ?>
 				</div>
 			</div>
 		</div>

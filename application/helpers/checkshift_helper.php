@@ -17,18 +17,30 @@
 if (!function_exists('check_shift')) {
     function check_shift($jadwal){
         $time = date('H:i:s');
-        $day = date('l');
         foreach($jadwal as $j){
-          if($j->jam_selesai == '00:00:00'){
-            $j->jam_selesai = '24:00:00';
-            if($j->hari_en == $day && $time >= $j->jam_masuk && $time <= $j->jam_selesai){
-              $j->jam_selesai = '00:00:00';
-              return true;
+            if($j->jam_selesai == '00:00:00'){
+              $j->jam_selesai = '24:00:00';
+              if($time >= $j->jam_masuk && $time <= $j->jam_selesai){
+                $j->jam_selesai = '00:00:00';
+                return true;
+              }else{
+                $j->jam_selesai = '00:00:00';
+                return false;
+              };
             }else{
-              $j->jam_selesai = '00:00:00';
-              return false;
-            };
-          }
+              if($time >= $j->jam_masuk && $time <= $j->jam_selesai){
+                return true;
+              }else{
+                return false;
+              };
+            }
         }
     }
+}
+
+if(!function_exists('check_shift_selesai')){
+  function check_shift_selesai($jadwal){
+    $time = date('H:i:s');
+    return ($time >= $jadwal[0]->jam_selesai ? true : false);
+  }
 }

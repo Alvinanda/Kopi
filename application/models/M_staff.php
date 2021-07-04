@@ -123,4 +123,10 @@ class m_staff extends CI_Model{
     return $this->db->get();
   }
 
+  function jumlahInvoiceHariIni($date){
+    $this->db->from('penjualan');
+    $this->db->where('Date(tanggal)', $date);
+    return $this->db->count_all_results();
+  }
+
 }

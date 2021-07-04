@@ -123,17 +123,18 @@
 	}
 
   function tambahkanPenjualan(){
-    $random = (rand(10,99));
+    //tanggal,idoutlet,nomor urut invoice
+    $dateNow = date('Y-m-d');
+    $jumlahInvoice = $this->m_staff->jumlahInvoiceHariIni($dateNow);
+    $jumlahInvoice = str_pad($jumlahInvoice+1,3,"0",STR_PAD_LEFT);
 
     $id_outlet= $this->session->userdata('outlet');
-    $id_penjualan = (int)(date("Ymd").$id_outlet. $random);
-    // var_dump(is_int($id_penjualan)); die;
+    $id_penjualan = join("",explode("-",$dateNow)).$id_outlet.$jumlahInvoice;
     $tanggal= date('Y-m-d H:i:s');
     $nama_pembeli= $this->input->post('nama_pembeli');
     $id_user= $this->session->userdata('id_user');
     $status= $this->input->post('status');
     $star_member= $this->input->post('star_member');
-
 
     $data = array(
       'id_penjualan' => $id_penjualan,

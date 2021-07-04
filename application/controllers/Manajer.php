@@ -19,7 +19,19 @@
     $id_user= $this->session->userdata('id_user');
     $data['jadwal'] = $this->m_manajer->lihatJadwalShiftUser($id_user);
     // $hari = $this->m_manajer->lihatHari();
-    $data['check_shift'] = check_shift($data['jadwal']);
+    $data['check_shift'] = $this->m_manajer->checkJadwalShiftHariIni($id_user, date('l'));
+    $data['absen'] = $this->m_manajer->checkAbsen($id_user, $data['check_shift'][0]->id_jadwal);
+    $data['check_shift'] = (empty($data['check_shift']) ? true:false);
+    if(empty($data['absen'])){
+      $data['absen'] = false;
+    }else{
+      if(!empty($data['absen'][0]->checkout)){
+        $data['absen'] = false;
+      }else{
+        $data['absen'] = true;
+      }
+    }
+    // $data['check_shift'] = check_shift($data['jadwal']);
     $this->load->view('manajer/index', $data);
     $this->load->view('layouts/footer');
   }
@@ -347,7 +359,7 @@
   function checkIn($id_jadwal){
     $outlet   = $this->session->userdata('outlet');
     $id_user  = $this->session->userdata('id_user');
-    $jadwal = $this->m_manajer->lihatJadwalShiftUser($id_user);
+    $jadwal = $this->m_manajer->checkJadwalShiftHariIni($id_user, date('l'));
     if(!check_shift($jadwal)){
       redirect('manajer/index');
     }
@@ -369,9 +381,15 @@
   function checkOut($id_jadwal){
     $outlet   = $this->session->userdata('outlet');
     $id_user  = $this->session->userdata('id_user');
+
+    $check_shift= $this->m_manajer->checkJadwalShiftHariIni($id_user, date('l'));
+    $absen = $this->m_manajer->checkAbsen($id_user, $check_shift[0]->id_jadwal);
+
+    if(!check_shift($check_shift) && !empty($absen) && !check_shift_selesai($check_shift)){
+      redirect('manajer/index');
+    }
     $checkout  = date('Y-m-d H:i:s');
     $status   = 'belum divalidasi';
-
     $data = array(
       'id_user' => $id_user,
       'id_outlet' => $outlet,
