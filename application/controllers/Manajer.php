@@ -18,19 +18,19 @@
     $outlet= $this->session->userdata('outlet');
     $id_user= $this->session->userdata('id_user');
     $data['jadwal'] = $this->m_manajer->lihatJadwalShiftUser($id_user);
-    // $hari = $this->m_manajer->lihatHari();
+    //ada shift hari ini
     $data['check_shift'] = $this->m_manajer->checkJadwalShiftHariIni($id_user, date('l'));
-    $data['check_shift'] = (empty($data['check_shift']) ? true:false);
-    if(empty($data['check_shift'])){
-      $data['absen'] = $this->m_manajer->checkAbsen($id_user, $data['check_shift'][0]->id_jadwal);
+    // var_dump(check_shift($data['check_shift']));
+    if(!empty($data['check_shift']) && check_shift($data['check_shift'])){
+      //ambil data apakah absen hari ini sudah check in atau belum
+      $absen = $this->m_manajer->checkAbsen($id_user, $data['check_shift'][0]->id_jadwal, date('Y-m-d'));
+      $data['checkin'] = (!empty($absen[0]->checkin) ? true : false);
+      $data['checkout'] = (!empty($absen[0]->checkout) ? true : false);
       $data['check_shift'] = true;
     }else{
+      $data['checkin'] = false;
+      $data['checkout'] = false;
       $data['check_shift'] = false;
-    }
-    if(!empty($data['absen'][0]->checkout)){
-      $data['absen'] = false;
-    }else{
-      $data['absen'] = true;
     }
     // $data['check_shift'] = check_shift($data['jadwal']);
     $this->load->view('manajer/index', $data);
@@ -384,7 +384,7 @@
     $id_user  = $this->session->userdata('id_user');
 
     $check_shift= $this->m_manajer->checkJadwalShiftHariIni($id_user, date('l'));
-    $absen = $this->m_manajer->checkAbsen($id_user, $check_shift[0]->id_jadwal);
+    $absen = $this->m_manajer->checkAbsen($id_user, $check_shift[0]->id_jadwal, date('l'));
 
     if(!check_shift($check_shift) && !empty($absen) && !check_shift_selesai($check_shift)){
       redirect('manajer/index');

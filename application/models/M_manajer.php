@@ -100,10 +100,11 @@ class m_manajer extends CI_Model{
     return $this->db->get()->result();
   }
 
-  function checkAbsen($id_user, $id_jadwal){
+  function checkAbsen($id_user, $id_jadwal, $hariIni){
     $this->db->from('absensi');
     $this->db->where('id_user', $id_user);
     $this->db->where('id_jadwal', $id_jadwal);
+    $this->db->where('Date(checkin)', $hariIni);
     return $this->db->get()->result();
   }
 

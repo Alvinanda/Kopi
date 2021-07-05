@@ -99,15 +99,17 @@
 					<?php endforeach; ?>
 				</div>
 				<div class="col-auto">
-					<?php if($check_shift){ ?>
+					<?php if($check_shift && !$checkin && !$checkout){ ?>
 					<a href="<?= base_url('manajer/checkIn/'.$j->id_jadwal); ?>" class="btn btn-primary">
 						Check in </a>
-					<?php }else{if($absen){	?>
+					<?php }elseif($check_shift && $checkin && !$checkout){ ?>
 					<a href="<?= base_url('manajer/checkOut/'.$j->id_jadwal); ?>" class="btn btn-primary">
 						Check out </a>
+					<?php }elseif($check_shift && $checkin && $checkout){ ?>
+					<button disabled class="btn btn-primary">Anda Sudah Absen Hari ini</button>
 					<?php }else{ ?>
-					<button disabled class="btn btn-primary">Check in</button>
-					<?php }} ?>
+					<button disabled class="btn btn-primary">Tidak ada jadwal shift</button>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
