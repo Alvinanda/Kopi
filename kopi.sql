@@ -11,7 +11,7 @@
  Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 04/07/2021 14:36:05
+ Date: 05/07/2021 16:33:08
 */
 
 SET NAMES utf8mb4;
@@ -35,8 +35,8 @@ CREATE TABLE `absensi`  (
 -- ----------------------------
 -- Records of absensi
 -- ----------------------------
-INSERT INTO `absensi` VALUES (1, 3, 2, 15, '2021-06-28 18:30:37', '2021-06-29 15:04:05', 'sudah divalidasi');
-INSERT INTO `absensi` VALUES (2, 3, 2, 15, '2021-06-29 15:03:18', '2021-06-29 15:04:05', 'sudah divalidasi');
+INSERT INTO `absensi` VALUES (1, 3, 2, 15, '2021-06-28 18:30:37', '2021-07-05 16:29:44', 'belum divalidasi');
+INSERT INTO `absensi` VALUES (2, 3, 2, 15, '2021-06-29 15:03:18', '2021-07-05 16:29:44', 'belum divalidasi');
 INSERT INTO `absensi` VALUES (3, 14, 2, 14, '2021-06-30 20:16:30', NULL, 'belum divalidasi');
 
 -- ----------------------------
@@ -69,18 +69,14 @@ CREATE TABLE `detail_penjualan`  (
   `jumlah` int NULL DEFAULT NULL,
   `id_outlet` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of detail_penjualan
 -- ----------------------------
-INSERT INTO `detail_penjualan` VALUES (1, '20210702288', 5, 2, 2);
-INSERT INTO `detail_penjualan` VALUES (2, '20210702288', 1, 2, 2);
-INSERT INTO `detail_penjualan` VALUES (3, '20210702288', 1, 4, 2);
-INSERT INTO `detail_penjualan` VALUES (4, '20210702288', 1, 1, 2);
-INSERT INTO `detail_penjualan` VALUES (7, '20210703214', 1, 2, 2);
-INSERT INTO `detail_penjualan` VALUES (10, '20210703214', 1, 1, 2);
-INSERT INTO `detail_penjualan` VALUES (11, '20210703214', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (14, '202107052001', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (15, '202107052001', 5, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (16, '202107052001', 5, 2, 2);
 
 -- ----------------------------
 -- Table structure for hari
@@ -243,9 +239,7 @@ CREATE TABLE `penjualan`  (
 -- ----------------------------
 -- Records of penjualan
 -- ----------------------------
-INSERT INTO `penjualan` VALUES ('20210702224', 'sisil', '2021-07-02 21:05:57', 14, 'Belum Dibayar', 2, 'Tidak');
-INSERT INTO `penjualan` VALUES ('20210702288', 'sisil', '2021-07-02 21:06:08', 14, 'Belum Dibayar', 2, 'Tidak');
-INSERT INTO `penjualan` VALUES ('20210703214', 'juni', '2021-07-03 11:58:30', 14, 'Sudah Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107052001', 'sisil nursisil', '2021-07-05 12:42:32', 14, 'Belum Dibayar', 2, 'Tidak');
 
 -- ----------------------------
 -- Table structure for shift

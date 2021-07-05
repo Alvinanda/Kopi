@@ -20,16 +20,17 @@
     $data['jadwal'] = $this->m_manajer->lihatJadwalShiftUser($id_user);
     // $hari = $this->m_manajer->lihatHari();
     $data['check_shift'] = $this->m_manajer->checkJadwalShiftHariIni($id_user, date('l'));
-    $data['absen'] = $this->m_manajer->checkAbsen($id_user, $data['check_shift'][0]->id_jadwal);
     $data['check_shift'] = (empty($data['check_shift']) ? true:false);
-    if(empty($data['absen'])){
+    if(empty($data['check_shift'])){
+      $data['absen'] = $this->m_manajer->checkAbsen($id_user, $data['check_shift'][0]->id_jadwal);
+      $data['check_shift'] = true;
+    }else{
+      $data['check_shift'] = false;
+    }
+    if(!empty($data['absen'][0]->checkout)){
       $data['absen'] = false;
     }else{
-      if(!empty($data['absen'][0]->checkout)){
-        $data['absen'] = false;
-      }else{
-        $data['absen'] = true;
-      }
+      $data['absen'] = true;
     }
     // $data['check_shift'] = check_shift($data['jadwal']);
     $this->load->view('manajer/index', $data);

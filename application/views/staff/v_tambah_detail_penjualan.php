@@ -147,7 +147,7 @@
             <a  data-toggle="modal" data-target="#modalLogin" class="mb-2 btn btn-sm btn-primary mr-1"><info class="text-warning">Selesai</info></a>
 
             <?php }else if($no != 1){?>
-            <a  href="<?php echo site_url('staff/lihatPenjualan');?>" class="mb-2 btn btn-sm btn-primary mr-1"><info class="text-warning">Selesai</info></a>
+            <a  href="<?php echo site_url('staff/lihatPenjualanHariIni');?>" class="mb-2 btn btn-sm btn-primary mr-1"><info class="text-warning">Selesai</info></a>
             <?php }?>
 
             </form>
@@ -158,7 +158,7 @@
 
     </div>
 
-    
+
 
 
 </div>

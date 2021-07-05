@@ -110,6 +110,12 @@ class m_staff extends CI_Model{
     return $this->db->get_where('penjualan');
   }
 
+  function tampilPenjualanHariIni($where,$id_user){
+    $this->db->where('DAYNAME(tanggal)',$where);
+    $this->db->where('id_user',$id_user);
+    return $this->db->get_where('penjualan');
+  }
+
   function tampilDetailPenjualan($id_penjualan){
     $this->db->where('id_penjualan',$id_penjualan);
     return $this->db->get_where('detail_penjualan');

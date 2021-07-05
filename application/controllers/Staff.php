@@ -154,10 +154,9 @@
 		$data['penjualan'] = $this->m_staff->tampilPenjualan($id_penjualan)->result();
     $data['detail_penjualan'] = $this->m_staff->tampilDetailPenjualan($id_penjualan)->result();
     $data['detail_penjualan2'] = $this->m_staff->tampilDetailPenjualan2($id_penjualan)->result();
-    // var_dump($data['detail_penjualan2'] ); die;
+
     $data['menuBar'] = $this->m_staff->tampilMenuBar($id_outlet)->result();
     $data['menuRetail'] = $this->m_staff->tampilMenuRetail($id_outlet)->result();
-		// $data['penyelenggara'] = $this->m_admin->tampilPenyelenggara()->result();
     $this->load->view('staff/v_tambah_detail_penjualan',$data);
     $this->load->view('layouts/footer');
 	}
@@ -185,6 +184,68 @@
 		$this->session->set_flashdata('notif', "Ruangan berhasil dihapus");
 		redirect('staff/inputDetailPenjualan/'.$id_penjualan);
 	}
+
+  function lihatPenjualanHariIni(){
+    $id_user= $this->session->userdata('id_user');
+    $today = date('l');
+		$data['penjualan'] = $this->m_staff->tampilPenjualanHariIni($today,$id_user)->result();
+    // $data['detail_penjualan'] = $this->m_staff->tampilDetailPenjualan($id_penjualan)->result();
+    //$data['detail_penjualan2'] = $this->m_staff->tampilDetailPenjualan2($id_penjualan)->result();
+
+  //  $data['menuBar'] = $this->m_staff->tampilMenuBar($id_outlet)->result();
+  //  $data['menuRetail'] = $this->m_staff->tampilMenuRetail($id_outlet)->result();
+    $this->load->view('staff/v_lihatPenjualan',$data);
+    $this->load->view('layouts/footer');
+	}
+
+  function lihatDetailPenjualan($id_penjualan){
+    $id_outlet= $this->session->userdata('outlet');
+    $today = date('l');
+		//$data['penjualan'] = $this->m_staff->tampilPenjualanHariIni($today,$id_user)->result();
+    $data['detail_penjualan'] = $this->m_staff->tampilDetailPenjualan($id_penjualan)->result();
+    $data['detail_penjualan2'] = $this->m_staff->tampilDetailPenjualan2($id_penjualan)->result();
+
+  $data['menuBar'] = $this->m_staff->tampilMenuBar($id_outlet)->result();
+  $data['menuRetail'] = $this->m_staff->tampilMenuRetail($id_outlet)->result();
+    $this->load->view('staff/v_lihatDetailPenjualan',$data);
+    $this->load->view('layouts/footer');
+	}
+
+  function updatePenjualan($id_penjualan){
+		$where = array('id_penjualan' => $id_penjualan);
+		$data['penjualan'] = $this->m_staff->edit_data($where,'penjualan')->result();
+    // var_dump($data['penjualan']); die;
+    $data['member'] = $this->m_staff->tampilStarMember()->result();
+		$this->load->view('staff/v_editPenjualan', $data);
+    $this->load->view('layouts/footer');
+	}
+
+  function editPenjualan(){
+    //tanggal,idoutlet,nomor urut invoice
+
+
+    $id_penjualan = $this->input->post('id_penjualan');
+    $nama_pembeli= $this->input->post('nama_pembeli');
+    $id_user= $this->session->userdata('id_user');
+    $status= $this->input->post('status');
+    $id_outlet= $this->session->userdata('outlet');
+    $star_member= $this->input->post('star_member');
+
+    $data = array(
+      'id_penjualan' => $id_penjualan,
+      'nama_pembeli' => $nama_pembeli,
+      'id_user' => $id_user,
+      'status' => $status,
+      'id_outlet' => $id_outlet,
+      'star_member' => $star_member
+    );
+
+    $where = array('id_penjualan' => $id_penjualan);
+    $this->m_staff->update_data($where,$data,'penjualan');
+    redirect('staff/lihatPenjualanHariIni');
+  }
+
+
 
 
  }
