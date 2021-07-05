@@ -20,19 +20,21 @@
     $data['jadwal'] = $this->m_manajer->lihatJadwalShiftUser($id_user);
     //ada shift hari ini
     $data['check_shift'] = $this->m_manajer->checkJadwalShiftHariIni($id_user, date('l'));
-    // var_dump(check_shift($data['check_shift']));
-    if(!empty($data['check_shift']) && check_shift($data['check_shift'])){
+    if(!empty($data['check_shift'])){
       //ambil data apakah absen hari ini sudah check in atau belum
-      $absen = $this->m_manajer->checkAbsen($id_user, $data['check_shift'][0]->id_jadwal, date('Y-m-d'));
-      $data['checkin'] = (!empty($absen[0]->checkin) ? true : false);
-      $data['checkout'] = (!empty($absen[0]->checkout) ? true : false);
-      $data['check_shift'] = true;
+        $absen = $this->m_manajer->checkAbsen($id_user, $data['check_shift'][0]->id_jadwal, date('Y-m-d'));
+        $data['checkin'] = (!empty($absen[0]->checkin) ? true : false);
+        $data['jam_checkin'] = check_shift($data['jadwal']);
+        $data['checkout'] = (!empty($absen[0]->checkout) ? true : false);
+        $data['jam_checkout'] = !check_shift_selesai($data['jadwal']);
+        $data['check_shift'] = true;
     }else{
       $data['checkin'] = false;
       $data['checkout'] = false;
+      $data['jam_checkin'] = false;
+      $data['jam_checkout'] = false;
       $data['check_shift'] = false;
     }
-    // $data['check_shift'] = check_shift($data['jadwal']);
     $this->load->view('manajer/index', $data);
     $this->load->view('layouts/footer');
   }

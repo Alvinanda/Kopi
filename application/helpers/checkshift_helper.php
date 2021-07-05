@@ -41,6 +41,9 @@ if (!function_exists('check_shift')) {
 if(!function_exists('check_shift_selesai')){
   function check_shift_selesai($jadwal){
     $time = date('H:i:s');
+    if($jadwal[0]->jam_selesai == '00:00:00'){
+      $jadwal[0]->jam_selesai == '24:00:00';
+    }
     return ($time >= $jadwal[0]->jam_selesai ? true : false);
   }
 }
