@@ -204,7 +204,7 @@
 
   //start of Shift
   function tambahShift(){
-    $this->load->view('manajer/v_tambahShift', );
+    $this->load->view('manajer/v_tambahShift' );
     $this->load->view('layouts/footer');
   }
 

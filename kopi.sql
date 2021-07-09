@@ -11,7 +11,7 @@
  Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 05/07/2021 16:33:08
+ Date: 09/07/2021 18:55:23
 */
 
 SET NAMES utf8mb4;
@@ -30,14 +30,16 @@ CREATE TABLE `absensi`  (
   `checkout` timestamp NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_absen`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of absensi
 -- ----------------------------
 INSERT INTO `absensi` VALUES (1, 3, 2, 15, '2021-06-28 18:30:37', '2021-07-05 16:29:44', 'belum divalidasi');
-INSERT INTO `absensi` VALUES (2, 3, 2, 15, '2021-06-29 15:03:18', '2021-07-05 16:29:44', 'belum divalidasi');
+INSERT INTO `absensi` VALUES (2, 3, 2, 15, '2021-06-29 15:03:18', '2021-07-05 16:29:44', 'sudah divalidasi');
 INSERT INTO `absensi` VALUES (3, 14, 2, 14, '2021-06-30 20:16:30', NULL, 'belum divalidasi');
+INSERT INTO `absensi` VALUES (4, 3, 2, 15, '2021-07-06 17:41:09', NULL, 'belum divalidasi');
+INSERT INTO `absensi` VALUES (5, 14, 2, 16, '2021-07-06 17:46:16', NULL, 'belum divalidasi');
 
 -- ----------------------------
 -- Table structure for bahan_baku
@@ -69,7 +71,7 @@ CREATE TABLE `detail_penjualan`  (
   `jumlah` int NULL DEFAULT NULL,
   `id_outlet` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of detail_penjualan
@@ -77,6 +79,26 @@ CREATE TABLE `detail_penjualan`  (
 INSERT INTO `detail_penjualan` VALUES (14, '202107052001', 1, 1, 2);
 INSERT INTO `detail_penjualan` VALUES (15, '202107052001', 5, 1, 2);
 INSERT INTO `detail_penjualan` VALUES (16, '202107052001', 5, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (17, '202107062001', 1, 3, 2);
+INSERT INTO `detail_penjualan` VALUES (18, '202107062001', 5, 4, 2);
+INSERT INTO `detail_penjualan` VALUES (20, '202107062002', 1, 8, 2);
+INSERT INTO `detail_penjualan` VALUES (22, '202107062003', 5, 3, 2);
+INSERT INTO `detail_penjualan` VALUES (23, '202107062003', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (24, '202107062003', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (25, '202107082001', 1, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (26, '202107082001', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (27, '202107082001', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (28, '202107082002', 5, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (29, '202107082002', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (30, '2021088999', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (31, '20210921921', 5, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (32, '202107092001', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (33, '202107092001', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (34, '202107092002', 1, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (35, '202107092002', 1, 4, 2);
+INSERT INTO `detail_penjualan` VALUES (36, '202107092003', 5, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (37, '202107092003', 1, 4, 2);
+INSERT INTO `detail_penjualan` VALUES (38, '202107092003', 5, 3, 2);
 
 -- ----------------------------
 -- Table structure for hari
@@ -129,7 +151,7 @@ CREATE TABLE `jadwal_shift`  (
   `kode_shift` int NULL DEFAULT NULL,
   `hari` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_jadwal`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of jadwal_shift
@@ -138,6 +160,7 @@ INSERT INTO `jadwal_shift` VALUES (10, 3, 2, 2, 3);
 INSERT INTO `jadwal_shift` VALUES (13, 15, 2, 2, 3);
 INSERT INTO `jadwal_shift` VALUES (14, 14, 2, 2, 4);
 INSERT INTO `jadwal_shift` VALUES (15, 3, 2, 1, 1);
+INSERT INTO `jadwal_shift` VALUES (16, 14, 2, 2, 3);
 
 -- ----------------------------
 -- Table structure for menu_bar
@@ -196,8 +219,8 @@ CREATE TABLE `outlet`  (
 -- ----------------------------
 -- Records of outlet
 -- ----------------------------
-INSERT INTO `outlet` VALUES (12, 'Kidjang', 'sunan kali jaga', '12/28/2020', 'aktif', '20:00:00', '10:00:00');
-INSERT INTO `outlet` VALUES (101, 'Remboeg', 'jalan gunung kelud', '06/03/2021', 'aktif', '00:00:00', '12:00:00');
+INSERT INTO `outlet` VALUES (1, 'Remboeg', 'jalan gunung kelud', '06/03/2021', 'aktif', '00:00:00', '12:00:00');
+INSERT INTO `outlet` VALUES (2, 'Kidjang', 'sunan kali jaga', '12/28/2020', 'aktif', '20:00:00', '10:00:00');
 INSERT INTO `outlet` VALUES (111, 'Brewok', 'jalan kapuas', '2019/03/29', 'aktif', '08:00:00', '22:00:00');
 INSERT INTO `outlet` VALUES (1011, 'Koopen', 'jalan setasiun', '06/03/2021', 'aktif', '20:00:00', '00:00:00');
 
@@ -240,6 +263,16 @@ CREATE TABLE `penjualan`  (
 -- Records of penjualan
 -- ----------------------------
 INSERT INTO `penjualan` VALUES ('202107052001', 'sisil nursisil', '2021-07-05 12:42:32', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107062001', 'junaedi Dul', '2021-07-06 16:12:53', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107062002', 'ZUl hadi', '2021-07-06 16:19:05', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107062003', 'jeje hadi', '2021-07-06 17:48:43', 14, 'Belum Dibayar', 2, 'Ya');
+INSERT INTO `penjualan` VALUES ('202107082001', 'Nurul', '2021-07-08 12:38:35', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107082002', 'Ariel', '2021-07-08 12:39:03', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107092001', 'jumet', '2021-07-09 08:36:37', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107092002', 'mblooo', '2021-07-09 14:22:14', 14, 'Sudah Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107092003', 'uus', '2021-07-09 14:35:29', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('2021088999', 'mboh', '2021-07-12 13:41:51', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('20210921921', 'ucil', '2021-07-20 15:16:43', 14, 'Belum Bayar', 2, 'Tidak');
 
 -- ----------------------------
 -- Table structure for shift
@@ -276,14 +309,14 @@ CREATE TABLE `user`  (
   `jabatan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `outlet` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_user`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 212 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'alvin', '1234', 'disini', 'pria', '2021-06-08', '08123456789', 'aktif', 'holding', 1);
 INSERT INTO `user` VALUES (2, 'nanda', '1234', 'kono', 'L', '2021-06-07', NULL, 'aktif', 'owner', 2);
-INSERT INTO `user` VALUES (3, 'Jon', '1234', 'kana', 'L', '2021-06-13', NULL, 'atif', 'manajer', 2);
+INSERT INTO `user` VALUES (3, 'Jon', '1234', 'kana', 'L', '2021-06-13', NULL, 'aktif', 'manajer', 2);
 INSERT INTO `user` VALUES (4, 'Jin', '1234', 'langsep', 'L', '2021-06-06', NULL, 'aktif', 'staff', 4);
 INSERT INTO `user` VALUES (8, 'huhu', '1234', 'jalan kendal payak', 'L', '2011-07-01', NULL, 'aktif', 'staff', 1);
 INSERT INTO `user` VALUES (12, 'tom', '1234', 'jalan gunung kelud 23', 'pria', '2019-02-28', '08162+656', 'aktif', 'staff', 1);
@@ -291,5 +324,6 @@ INSERT INTO `user` VALUES (13, 'tim', '1234', 'ajaaa', 'pria', '2019-03-22', '12
 INSERT INTO `user` VALUES (14, 'joss 2', '1234', 'jalan kendal payak 23', 'pria', '1999-03-12', '12313', 'aktif', 'staff', 2);
 INSERT INTO `user` VALUES (15, 'joss', '1234', 'jalan kendal payak 23', 'pria', '1899-10-31', '1231231', 'aktif', 'manajer', 2);
 INSERT INTO `user` VALUES (23, 'jeje', '*********', 'jauuuuh', 'pria', '2021-05-03', '12321513515841', 'aktif', 'star member', 2);
+INSERT INTO `user` VALUES (211, 'alvin2', '1234', 'asda', 'L', '2021-06-27', '0239420394', 'aktif', 'holding', 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
