@@ -55,15 +55,15 @@
                                     <td><?php echo $u->status ?></td>
                                     <td><?php echo $u->star_member ?></td>
                                     <td>
-                                      <a href="<?php echo site_url('staff/updatePenjualan/'.$u->id_penjualan); ?>" class="btn btn-info btn-circle btn-sm">
+                                      <a href="<?php echo site_url('staff/lihatDetailPenjualan/'.$u->id_penjualan); ?>" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-exclamation-triangle"></i>
                                     </a>
                                    </td>
                                     <td>
-                                      <a href="<?php echo site_url('staff/updateBahanBaku/'.$u->id_penjualan); ?>" class="btn btn-info btn-circle btn-sm">
+                                      <a href="<?php echo site_url('staff/updatePenjualan/'.$u->id_penjualan); ?>" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-exclamation-triangle"></i>
                                     </a>
-                                      <a href="<?php echo site_url('staff/hapusBahanBaku/'.$u->id_penjualan); ?>" class="btn btn-danger btn-circle btn-sm" onclick="return deletechecked();" type="button" class="btn btn-white" onclick="return deletechecked();" title="Hapus Data Mahasiswa">
+                                      <a href="<?php echo site_url('staff/hapusPenjualan/'.$u->id_penjualan); ?>" class="btn btn-danger btn-circle btn-sm" onclick="return deletechecked();" type="button" class="btn btn-white" onclick="return deletechecked();" title="Hapus Data Mahasiswa">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                    </td>

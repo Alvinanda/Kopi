@@ -5,7 +5,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('manajer/index') ?>">
 
-                <div class="sidebar-brand-text mx-3">Manajer</div>
+                <div class="sidebar-brand-text mx-3">Manajer <?= $session['nama_outlet'] ?></div>
             </a>
 
             <!-- Divider -->
@@ -78,16 +78,9 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="<?= base_url('manajer/lihatPenjualanHariIni') ?>">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Penjualan Hari Ini</span></a>
             </li>
 
             <!-- Divider -->

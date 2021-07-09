@@ -4,8 +4,8 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                
-                <div class="sidebar-brand-text mx-3">Owner</div>
+
+                <div class="sidebar-brand-text mx-3">Owner <?= $session['nama_outlet'] ?></div>
             </a>
 
             <!-- Divider -->
@@ -68,24 +68,35 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                Laporan
             </div>
-
-
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="<?= base_url('owner/lihatPenjualan') ?>">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>Penjualan</span></a>
             </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('owner/lihatPenjualanHariIni') ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Penjualan Hari Ini</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('owner/lihatPenjualanMingguan') ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Penjualan Mingguan</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('owner/lihatPenjualanBulanan') ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Penjualan Bulanan</span></a>
+            </li>
+
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

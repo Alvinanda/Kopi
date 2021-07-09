@@ -17,7 +17,11 @@
  	}
 
   function index(){
-    $this->load->view('owner/index');
+    $outlet= $this->session->userdata('outlet');
+    $data['menuTerjual'] = $this->m_owner->tampilItemTerjualPerhari($outlet)->result();
+    $data['total'] = $this->m_owner->tampilTotallPenjualanHariIni($outlet)->result();
+    $data['totalBulan'] = $this->m_owner->tampilTotallPenjualanBulanIni($outlet)->result();
+    $this->load->view('owner/index', $data);
     $this->load->view('layouts/footer');
   }
 
@@ -325,5 +329,70 @@
 
   //End of Menu Retail
 
+  //start of  Laporan Penjualan
+
+  function lihatPenjualan(){
+    $outlet= $this->session->userdata('outlet');
+    $data['penjualan'] = $this->m_owner->tampilPenjualan($outlet)->result();
+    // $data['detail_penjualan'] = $this->m_owner->tampilDetailPenjualan($id_penjualan)->result();
+    $data['total'] = $this->m_owner->tampilTotallPenjualan($outlet)->result();
+
+  //  $data['menuBar'] = $this->m_owner->tampilMenuBar($id_outlet)->result();
+  //  $data['menuRetail'] = $this->m_owner->tampilMenuRetail($id_outlet)->result();
+    $this->load->view('owner/v_lihatPenjualan',$data);
+    $this->load->view('layouts/footer');
+  }
+
+  function lihatPenjualanHariIni(){
+    $outlet= $this->session->userdata('outlet');
+    $today = date('l');
+		$data['penjualan'] = $this->m_owner->tampilPenjualanHariIni($today,$outlet)->result();
+    // $data['detail_penjualan'] = $this->m_owner->tampilDetailPenjualan($id_penjualan)->result();
+    $data['total'] = $this->m_owner->tampilTotallPenjualan($outlet)->result();
+
+  //  $data['menuBar'] = $this->m_owner->tampilMenuBar($id_outlet)->result();
+  //  $data['menuRetail'] = $this->m_owner->tampilMenuRetail($id_outlet)->result();
+    $this->load->view('owner/v_lihatPenjualanHariIni',$data);
+    $this->load->view('layouts/footer');
+	}
+
+  function lihatDetailPenjualan($id_penjualan){
+    $id_outlet= $this->session->userdata('outlet');
+    $today = date('l');
+		//$data['penjualan'] = $this->m_staff->tampilPenjualanHariIni($today,$id_user)->result();
+    $data['detail_penjualan'] = $this->m_owner->tampilDetailPenjualan($id_penjualan)->result();
+    $data['detail_penjualan2'] = $this->m_owner->tampilDetailPenjualan2($id_penjualan)->result();
+
+    $data['menuBar'] = $this->m_owner->tampilMenuBar($id_outlet)->result();
+    $data['menuRetail'] = $this->m_owner->tampilMenuRetail($id_outlet)->result();
+    $this->load->view('owner/v_lihatDetailPenjualan',$data);
+    $this->load->view('layouts/footer');
+	}
+
+  function lihatPenjualanMingguan(){
+    $outlet= $this->session->userdata('outlet');
+		//$data['penjualan'] = $this->m_owner->tampilPenjualan($today,$outlet)->result();
+    $data['hari'] = $this->m_owner->lihatHari()->result();
+    $data['total'] = $this->m_owner->tampilTotallPenjualanPerHari($outlet)->result();
+
+  //  $data['menuBar'] = $this->m_owner->tampilMenuBar($id_outlet)->result();
+  //  $data['menuRetail'] = $this->m_owner->tampilMenuRetail($id_outlet)->result();
+    $this->load->view('owner/v_lihatPenjualanMingguan',$data);
+    $this->load->view('layouts/footer');
+	}
+
+  function lihatPenjualanBulanan(){
+    $outlet= $this->session->userdata('outlet');
+		//$data['penjualan'] = $this->m_owner->tampilPenjualan($today,$outlet)->result();
+    $data['hari'] = $this->m_owner->lihatHari()->result();
+    $data['total'] = $this->m_owner->tampilTotallPenjualanPerMinggu($outlet)->result();
+
+  //  $data['menuBar'] = $this->m_owner->tampilMenuBar($id_outlet)->result();
+  //  $data['menuRetail'] = $this->m_owner->tampilMenuRetail($id_outlet)->result();
+    $this->load->view('owner/v_lihatPenjualanBulanan',$data);
+    $this->load->view('layouts/footer');
+	}
+
+  //end of Laporan Penjualan
 
  }

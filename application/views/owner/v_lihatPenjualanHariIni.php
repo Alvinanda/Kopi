@@ -8,12 +8,12 @@
         <div class="container-fluid">
 
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Data Outlet</h1>
+            <h1 class="h3 mb-2 text-gray-800">Data Penjualan Hari Ini </h1>
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Tables outlet</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tables Penjualan</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -21,53 +21,43 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Outlet</th>
-                                    <th>Alamat</th>
-                                    <th>Tanggal Berdiri</th>
+                                    <th>Kode Penjualan</th>
+                                    <th>Nama Pembeli</th>
+                                    <th>Tanggal</th>
                                     <th>Status</th>
-                                    <th>Jam Buka</th>
-                                    <th>Jam Tutup</th>
-                                    <th>Laporan</th>
-                                    <th>Action</th>
+                                    <th>Star Member</th>
+                                    <th>Total</th>
+                                    <th>Lihat Detail</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                   <th>No</th>
-                                  <th>Nama Outlet</th>
-                                  <th>Alamat</th>
-                                  <th>Tanggal Berdiri</th>
+                                  <th>Kode Penjualan</th>
+                                  <th>Nama Pembeli</th>
+                                  <th>Tanggal</th>
                                   <th>Status</th>
-                                  <th>Jam Buka</th>
-                                  <th>Jam Tutup</th>
-                                  <th>Laporan</th>
-                                  <th>Action</th>
+                                  <th>Star Member</th>
+                                  <th>Total</th>
+                                  <th>Lihat Detail</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                               <?php
                                   $no = 1;
-                                  foreach ($outlet as $u){
+                                  foreach ($penjualan as $u){
                                   ?>
                                 <tr>
                                     <td><?php echo $no++ ?></td>
-                                    <td><?php echo $u->nama ?></td>
-                                    <td><?php echo $u->alamat ?></td>
-                                    <td><?php echo $u->tanggal_berdiri ?></td>
+                                    <td><?php echo $u->id_penjualan ?></td>
+                                    <td><?php echo $u->nama_pembeli ?></td>
+                                    <td><?php echo $u->tanggal ?></td>
                                     <td><?php echo $u->status ?></td>
-                                    <td><?php echo $u->jam_buka ?></td>
-                                    <td><?php echo $u->jam_tutup ?></td>
+                                    <td><?php echo $u->star_member ?></td>
+                                    <td><?php foreach ($total as $a){if($a->id_penjualan == $u->id_penjualan) :echo 'Rp '.number_format($a->total,2,",","."); endif;}  ?></td>
                                     <td>
-                                      <a href="<?php echo site_url('holding/lihatPenjualan/'.$u->id_outlet); ?>" class="btn btn-info btn-circle btn-sm">
-                                        <i class="fas fa-align-left"></i>
-                                    </a>
-                                   </td>
-                                    <td>
-                                      <a href="<?php echo site_url('holding/updateOutlet/'.$u->id_outlet); ?>" class="btn btn-info btn-circle btn-sm">
+                                      <a href="<?php echo site_url('owner/lihatDetailPenjualan/'.$u->id_penjualan); ?>" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-exclamation-triangle"></i>
-                                    </a>
-                                      <a href="<?php echo site_url('holding/hapusOutlet/'.$u->id_outlet); ?>" class="btn btn-danger btn-circle btn-sm" onclick="return deletechecked();" type="button" class="btn btn-white" onclick="return deletechecked();" title="Hapus Data Mahasiswa">
-                                        <i class="fas fa-trash"></i>
                                     </a>
                                    </td>
                                 </tr>
@@ -84,15 +74,7 @@
     </div>
     <!-- End of Main Content -->
 
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2020</span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
+
 
 </div>
 <!-- End of Content Wrapper -->

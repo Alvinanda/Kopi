@@ -18,8 +18,23 @@
     $outlet= $this->session->userdata('outlet');
     $id_user= $this->session->userdata('id_user');
     $data['jadwal'] = $this->m_staff->lihatJadwalShiftUser($id_user);
-    // $hari = $this->m_staff->lihatHari();
-    $data['check_shift'] = check_shift($data['jadwal']);
+    //ada shift hari ini
+    $data['check_shift'] = $this->m_staff->checkJadwalShiftHariIni($id_user, date('l'));
+    if(!empty($data['check_shift'])){
+      //ambil data apakah absen hari ini sudah check in atau belum
+        $absen = $this->m_staff->checkAbsen($id_user, $data['check_shift'][0]->id_jadwal, date('Y-m-d'));
+        $data['checkin'] = (!empty($absen[0]->checkin) ? true : false);
+        $data['jam_checkin'] = check_shift($data['jadwal']);
+        $data['checkout'] = (!empty($absen[0]->checkout) ? true : false);
+        $data['jam_checkout'] = !check_shift_selesai($data['jadwal']);
+        $data['check_shift'] = true;
+    }else{
+      $data['checkin'] = false;
+      $data['checkout'] = false;
+      $data['jam_checkin'] = false;
+      $data['jam_checkout'] = false;
+      $data['check_shift'] = false;
+    }
     $this->load->view('staff/index', $data);
     $this->load->view('layouts/footer');
   }
@@ -244,6 +259,13 @@
     $this->m_staff->update_data($where,$data,'penjualan');
     redirect('staff/lihatPenjualanHariIni');
   }
+
+  function hapusPenjualan($id_penjualan){
+		$where = array('id_penjualan' => $id_penjualan);
+		$this->m_staff->hapus_data($where,'penjualan');
+    $this->m_staff->hapus_data($where,'detail_penjualan');
+		redirect('staff/lihatPenjualanHariIni');
+	}
 
 
 

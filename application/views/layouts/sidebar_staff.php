@@ -5,7 +5,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('manajer/index') ?>">
 
-                <div class="sidebar-brand-text mx-3">Staff</div>
+                <div class="sidebar-brand-text mx-3">Staff <?= $session['nama_outlet'] ?></div>
             </a>
 
             <!-- Divider -->

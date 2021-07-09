@@ -19,6 +19,12 @@
 
                       <form action="<?= base_url(). 'holding/tambahkanUser';  ?>" method="post">
                         <div class="form-group row">
+                          <label for="formGroupExampleInput" class="col-sm-2 col-form-label">ID User</label>
+                          <div class="col-sm-10">
+                          <input required type="text" class="form-control" name="id_user" id="formGroupExampleInput" placeholder="">
+                          </div>
+                        </div>
+                        <div class="form-group row">
                           <label for="formGroupExampleInput" class="col-sm-2 col-form-label">Nama</label>
                           <div class="col-sm-10">
                           <input required type="text" class="form-control" name="nama" id="formGroupExampleInput" placeholder="">

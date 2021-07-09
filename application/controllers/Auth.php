@@ -7,44 +7,52 @@ class Auth extends CI_Controller{
 		$this->load->helper('url');
 		$this->load->model('m_auth');
 		$this->load->library('form_validation');
+		$this->load->library('session');
+
 	}
 
 	function index(){
-	$data['main_view'] = 'v_login';
-	$this->load->view('auth/v_login', $data);
+	//$data['main_view'] = 'v_login';
+	$this->load->view('auth/v_login');
 	}
 
 	function login(){
-		$data['main_view'] = 'v_login';
-		$this->load->view('v_login', $data);
+	//	$data['main_view'] = 'v_login';
+		$this->load->view('auth/v_login');
 	}
 	//alvin
 	public function cek_login(){
+
 		if($this->session->userdata('logged_in') == FALSE){
 
 			$this->form_validation->set_rules('username', 'username', 'trim|required');
 			$this->form_validation->set_rules('password', 'password', 'trim|required');
+
 			if ($this->form_validation->run() == TRUE) {
 
 				if($this->m_auth->cek_user_holding() == TRUE){
 
-					$status = $this->session->userdata('jabatan');
-					if($status=="holding"){
+					$jabatan = $this->session->userdata('jabatan');
+					$status_pegawai = $this->session->userdata('status');
+					$status_outlet = $this->session->userdata('status_outlet');
+				//var_dump($jabatan,$status_outlet, $status_pegawai); die;
+
+					if($jabatan == "holding" and $status_pegawai == "aktif" and $status_outlet == "aktif"){
 						redirect('holding/index');
-					}else if ($status == "owner"){
+					}else if ($jabatan == "owner" and $status_pegawai == "aktif" and $status_outlet == "aktif"){
 						redirect('owner/index');
-					}else if ($status == "manajer"){
+					}else if ($jabatan == "manajer" and $status_pegawai == "aktif" and $status_outlet == "aktif"){
 						redirect('manajer/index');
-					}else{
+					}else if ($jabatan == "staff" and $status_pegawai == "aktif" and $status_outlet == "aktif"){
 						redirect('staff/index');
 					}
 				} else{
 					$this->session->set_flashdata('notif', 'Username atau Password salah');
-					redirect('auth/index');
+					redirect('auth');
 				}
 			} else {
 				$this->session->set_flashdata('notif', validation_errors());
-					redirect('auth/index');
+					redirect('auth');
 			}
 		} else {
 			redirect('auth/logout');

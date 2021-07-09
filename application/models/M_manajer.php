@@ -122,4 +122,32 @@ class m_manajer extends CI_Model{
     return $this->db->get('hari');
   }
 
+  function tampilPenjualanHariIni($where,$outlet){
+    $this->db->where('DAYNAME(tanggal)',$where);
+    $this->db->where('id_outlet',$outlet);
+    return $this->db->get_where('penjualan');
+  }
+
+  function tampilTotallPenjualan($outlet){
+    $this->db->select('a.id_penjualan, SUM(u.harga * a.jumlah) as total');
+    $this->db->from('detail_penjualan a');
+    $this->db->join('menu_bar u', 'u.id_menu = a.id_menu');
+    $this->db->where('a.id_outlet',$outlet);
+    $this->db->group_by("a.id_penjualan");
+    return $this->db->get();
+  }
+
+  function tampilDetailPenjualan($id_penjualan){
+    $this->db->where('id_penjualan',$id_penjualan);
+    return $this->db->get_where('detail_penjualan');
+  }
+
+  function tampilDetailPenjualan2($id_penjualan){
+    $this->db->select('SUM(u.harga * a.jumlah) as total');
+    $this->db->from('detail_penjualan a');
+    $this->db->join('menu_bar u', 'u.id_menu = a.id_menu');
+    $this->db->where('a.id_penjualan',$id_penjualan);
+    return $this->db->get();
+  }
+
 }

@@ -25,30 +25,63 @@
 <body class="bg-gradient-primary">
 
 	<div class="container">
+		<?php
+	$notif = $this->session->flashdata('notif');
+	if($notif != NULL){
+		echo '
+		<div class="alert alert-primary mb-0" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close text-white">x</i></span>
+		</button>
+		<i class="fa fa-info mx-2"></i>
+		<strong>'.$notif.'</strong>
+		</div>
+		';
+	}
+?>
 
 		<!-- Outer Row -->
 		<div class="row justify-content-center">
 
 			<div class="col-xl-10 col-lg-12 col-md-9">
 
+
 				<div class="card o-hidden border-0 shadow-lg my-5">
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="row">
-							<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+							<div class="col-lg-6 ">
+								<div class="p-5">
+								<div class="text-left">
+									<h1 class="h4 text-gray-900 mb-4">Info Login</h1>
+									<span>
+										Holding -> Username: alvin ; Pass: 1234 </br>
+										Owner -> Username: nanda ; Pass: 1234 </br>
+										manajer -> Username: jon ; Pass: 1234 </br>
+										joss 2 -> Username: joss 2 ; Pass: 1234 </br>
+										---------------------------------------------- </br>
+										Holding = Super User </br>
+										Owner = hanya bisa mengurus outletnya sendiri </br>
+										Manajer = hanya bisa mengurus karyawannya </br>
+										Staff = stae holder paling bawah </br>
+									</span>
+								</div>
+							</div>
+							</div>
 							<div class="col-lg-6">
 								<div class="p-5">
 									<div class="text-center">
 										<h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
 									</div>
+
 									<form class="user" action=" <?php echo base_url().'auth/cek_login'; ?>"
 										method="post">
 										<div class="form-group">
-											<input class="form-control form-control-user" name="username"
+											<input required class="form-control form-control-user" name="username"
 												aria-describedby="emailHelp" placeholder="Masukkan nama anda...">
 										</div>
 										<div class="form-group">
-											<input type="password" class="form-control form-control-user"
+											<input required type="password" class="form-control form-control-user"
 												name="password" placeholder="Password">
 										</div>
 										<div class="form-group">

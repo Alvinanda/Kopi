@@ -67,6 +67,8 @@
 	</div>
 
 <!-- Absensi -->
+
+</div>
 <div class="col-xl-3 col-md-6 mb-4">
 	<div class="card border-left-primary shadow h-100 py-2">
 		<div class="card-body">
@@ -80,18 +82,25 @@
 					<?php endforeach; ?>
 				</div>
 				<div class="col-auto">
-					<?php if($check_shift){ ?>
-					<a href="<?= base_url('staff/checkIn/'.$j->id_jadwal); ?>" <?= !$check_shift ? 'disabled':'' ?>
-						class="btn btn-primary">
+					<!-- <?# var_dump($checkout);die; ?> -->
+					<?php if($check_shift && !$checkin && !$jam_checkin && !$checkout && !$jam_checkout){ ?>
+					<button disabled class="btn btn-primary">Check in</button>
+					<?php }elseif($check_shift && !$checkin && $jam_checkin && !$checkout && !$jam_checkout){ ?>
+					<a href="<?= base_url('manajer/checkIn/'.$j->id_jadwal); ?>" class="btn btn-primary">
 						Check in </a>
+					<?php }elseif($check_shift && $checkin && $jam_checkin && !$checkout && !$jam_checkout){ ?>
+					<button disabled class="btn btn-primary">Check out</button>
+					<?php }elseif($check_shift && $checkin && $jam_checkin && !$checkout && $jam_checkout){ ?>
+					<a href="<?= base_url('manajer/checkOut/'.$j->id_jadwal); ?>" class="btn btn-primary">
+						Check out </a>
+					<?php }elseif($check_shift && !$checkin && !$jam_checkin && !$checkout){ ?>
+					<button disabled class="btn btn-primary">Anda Sudah Absen Hari ini</button>
 					<?php }else{ ?>
-					<button disabled class="btn btn-primary">Check in </button>
+					<button disabled class="btn btn-primary">Tidak ada jadwal shift</button>
 					<?php } ?>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
 </div>
 <!-- /.container-fluid -->

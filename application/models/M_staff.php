@@ -90,6 +90,24 @@ class m_staff extends CI_Model{
     return $this->db->get()->result();
   }
 
+  function checkJadwalShiftHariIni($id, $day){
+    $this->db->select('j.id_jadwal, j.id_user, s.jam_masuk, s.jam_selesai, h.hari, h.hari_en');
+    $this->db->from('jadwal_shift j');
+    $this->db->join('shift s', 's.kode_shift = j.kode_shift');
+    $this->db->join('hari h', 'h.id = j.hari');
+    $this->db->where('j.id_user',$id);
+    $this->db->where('h.hari_en',$day);
+    return $this->db->get()->result();
+  }
+
+  function checkAbsen($id_user, $id_jadwal, $hariIni){
+    $this->db->from('absensi');
+    $this->db->where('id_user', $id_user);
+    $this->db->where('id_jadwal', $id_jadwal);
+    $this->db->where('Date(checkin)', $hariIni);
+    return $this->db->get()->result();
+  }
+
   function tampilAbsensi($outlet,$id_user){
     $this->db->select('a.id_absen, u.nama, s.jam_masuk, s.jam_selesai, a.checkin, a.checkout, a.status');
     $this->db->from('absensi a');

@@ -16,8 +16,8 @@ class Holding extends CI_Controller{
 	}
 
   function index(){
-
-    $this->load->view('holding/index');
+		$data['outlet']=$this->m_holding->totalOutlet()->result();
+    $this->load->view('holding/index',$data);
     $this->load->view('layouts/footer');
 	}
 
@@ -35,7 +35,8 @@ class Holding extends CI_Controller{
   }
 
   function tambahkanUser(){
-    $nama= $this->input->post('nama');
+		$id_user= $this->input->post('id_user');
+		$nama= $this->input->post('nama');
     $password= $this->input->post('password');
     $alamat= $this->input->post('alamat');
     $kelamin= $this->input->post('kelamin');
@@ -47,6 +48,7 @@ class Holding extends CI_Controller{
 
 
     $data = array(
+			'id_user' => $id_user,	
       'nama' => $nama,
       'password' => $password,
       'alamat' => $alamat,
@@ -188,5 +190,51 @@ class Holding extends CI_Controller{
 		$this->load->view('holding/v_lihatProfil', $data);
 		$this->load->view('layouts/footer');
 	}
+
+	//start of lihat laporan outlet
+
+	function lihatPenjualan($outlet){
+    $data['penjualan'] = $this->m_holding->tampilPenjualan($outlet)->result();
+    $data['total'] = $this->m_holding->tampilTotallPenjualan($outlet)->result();
+		$data['outlet'] = $this->m_holding->tampilOutlet($outlet)->result();
+    $this->load->view('holding/v_lihatPenjualan',$data);
+    $this->load->view('layouts/footer');
+	}
+
+	function lihatDetailPenjualan($id_penjualan, $outlet){
+		$data['detail_penjualan'] = $this->m_holding->tampilDetailPenjualan($id_penjualan)->result();
+		$data['detail_penjualan2'] = $this->m_holding->tampilDetailPenjualan2($id_penjualan)->result();
+		$data['outlet'] = $this->m_holding->tampilOutlet($outlet)->result();
+		$data['menuBar'] = $this->m_holding->tampilMenuBar($outlet)->result();
+		$data['menuRetail'] = $this->m_holding->tampilMenuRetail($outlet)->result();
+		$this->load->view('holding/v_lihatDetailPenjualan',$data);
+		$this->load->view('layouts/footer');
+	}
+
+	function lihatPenjualanHariIni($outlet){
+    $today = date('l');
+		$data['outlet'] = $this->m_holding->tampilOutlet($outlet)->result();
+		$data['penjualan'] = $this->m_holding->tampilPenjualanHariIni($today,$outlet)->result();
+    $data['total'] = $this->m_holding->tampilTotallPenjualan($outlet)->result();
+    $this->load->view('holding/v_lihatPenjualanHariIni',$data);
+	}
+
+	function lihatPenjualanMingguan($outlet){
+    $data['outlet'] = $this->m_holding->tampilOutlet($outlet)->result();
+    $data['hari'] = $this->m_holding->lihatHari()->result();
+    $data['total'] = $this->m_holding->tampilTotallPenjualanPerHari($outlet)->result();
+    $this->load->view('holding/v_lihatPenjualanMingguan',$data);
+    $this->load->view('layouts/footer');
+	}
+
+	function lihatPenjualanBulanan($outlet){
+    $data['outlet'] = $this->m_holding->tampilOutlet($outlet)->result();
+    $data['hari'] = $this->m_holding->lihatHari()->result();
+    $data['total'] = $this->m_holding->tampilTotallPenjualanPerMinggu($outlet)->result();
+    $this->load->view('holding/v_lihatPenjualanBulanan',$data);
+    $this->load->view('layouts/footer');
+	}
+
+	//end of Lihat laporan outlet
 
 }

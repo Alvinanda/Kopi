@@ -8,12 +8,14 @@
         <div class="container-fluid">
 
             <!-- Page Heading -->
-            <h1 class="h3 mb-2 text-gray-800">Data Outlet</h1>
+            <h1 class="h3 mb-2 text-gray-800">Detail Penjualan</h1>
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Tables outlet</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tables Penjualan <?php echo $detail_penjualan[0]->id_penjualan ?></h6>
+                    <div class="row justify-content-end">
+                  </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -21,55 +23,31 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Outlet</th>
-                                    <th>Alamat</th>
-                                    <th>Tanggal Berdiri</th>
-                                    <th>Status</th>
-                                    <th>Jam Buka</th>
-                                    <th>Jam Tutup</th>
-                                    <th>Laporan</th>
-                                    <th>Action</th>
+                                    <th>Nama Menu</th>
+                                    <th>Jumlah</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                  <th>No</th>
-                                  <th>Nama Outlet</th>
-                                  <th>Alamat</th>
-                                  <th>Tanggal Berdiri</th>
-                                  <th>Status</th>
-                                  <th>Jam Buka</th>
-                                  <th>Jam Tutup</th>
-                                  <th>Laporan</th>
-                                  <th>Action</th>
-                                </tr>
-                            </tfoot>
+                            <?php foreach ($detail_penjualan2 as $x){?>
+                            <tfoot role="row" class="py-2 bg-light text-semibold border-bottom">
+                            <tr>
+                                <th scope="col" class="border-0"></th>
+                                <th scope="col" class="border-0">Total</th>
+                                <th scope="col" class="border-0"><?php
+                                 echo 'Rp '. number_format($x->total,2,",","."); ?></th>
+                                <th scope="col" class="border-0"></th>
+                            </tr>
+                          </tfoot>
+                        <?php } ?>
                             <tbody>
-                              <?php
-                                  $no = 1;
-                                  foreach ($outlet as $u){
-                                  ?>
                                 <tr>
-                                    <td><?php echo $no++ ?></td>
-                                    <td><?php echo $u->nama ?></td>
-                                    <td><?php echo $u->alamat ?></td>
-                                    <td><?php echo $u->tanggal_berdiri ?></td>
-                                    <td><?php echo $u->status ?></td>
-                                    <td><?php echo $u->jam_buka ?></td>
-                                    <td><?php echo $u->jam_tutup ?></td>
-                                    <td>
-                                      <a href="<?php echo site_url('holding/lihatPenjualan/'.$u->id_outlet); ?>" class="btn btn-info btn-circle btn-sm">
-                                        <i class="fas fa-align-left"></i>
-                                    </a>
-                                   </td>
-                                    <td>
-                                      <a href="<?php echo site_url('holding/updateOutlet/'.$u->id_outlet); ?>" class="btn btn-info btn-circle btn-sm">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                    </a>
-                                      <a href="<?php echo site_url('holding/hapusOutlet/'.$u->id_outlet); ?>" class="btn btn-danger btn-circle btn-sm" onclick="return deletechecked();" type="button" class="btn btn-white" onclick="return deletechecked();" title="Hapus Data Mahasiswa">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                   </td>
+                                  <?php
+                                      $no = 1;
+                                      foreach ($detail_penjualan as $u){
+                                      ?>
+                                  <tr>
+                                          <td><?php echo $no++ ?></td>
+                                          <td><?php  foreach ($menuBar as $a){if ($a->id_menu == $u->id_menu) :echo $a->nama;endif;} ?></td>
+                                          <td><?php  echo $u->jumlah ?></td>
                                 </tr>
                               <?php } ?>
                             </tbody>
@@ -84,15 +62,7 @@
     </div>
     <!-- End of Main Content -->
 
-    <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2020</span>
-            </div>
-        </div>
-    </footer>
-    <!-- End of Footer -->
+
 
 </div>
 <!-- End of Content Wrapper -->
