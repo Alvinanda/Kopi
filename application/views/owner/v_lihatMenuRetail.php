@@ -47,10 +47,10 @@
                                     <td><?php echo $u->harga ?></td>
                                     <td><?php echo $u->status ?></td>
                                     <td>
-                                      <a href="<?php echo site_url('owner/updateMenuRetail/'.$u->id_retail); ?>" class="btn btn-info btn-circle btn-sm">
+                                      <a href="<?php echo site_url('owner/updateMenuRetail/'.$u->id_menu); ?>" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-exclamation-triangle"></i>
                                     </a>
-                                      <a href="<?php echo site_url('owner/hapusMenuRetail/'.$u->id_retail); ?>" class="btn btn-danger btn-circle btn-sm" onclick="return deletechecked();" type="button" class="btn btn-white" onclick="return deletechecked();" title="Hapus Data Mahasiswa">
+                                      <a href="<?php echo site_url('owner/hapusMenuRetail/'.$u->id_menu); ?>" class="btn btn-danger btn-circle btn-sm" onclick="return deletechecked();" type="button" class="btn btn-white" onclick="return deletechecked();" title="Hapus Data Mahasiswa">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                    </td>

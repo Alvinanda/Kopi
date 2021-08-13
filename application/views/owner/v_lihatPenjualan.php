@@ -54,7 +54,12 @@
                                     <td><?php echo $u->tanggal ?></td>
                                     <td><?php echo $u->status ?></td>
                                     <td><?php echo $u->star_member ?></td>
-                                    <td><?php foreach ($total as $a){if($a->id_penjualan == $u->id_penjualan) :echo 'Rp '.number_format($a->total,2,",","."); endif;}  ?></td>
+                                    <td><?php foreach ($total as $a){
+                                      if($a->id_penjualan == $u->id_penjualan ){
+                                       echo 'Rp '.number_format($a->total,2,",",".");
+                                      }
+
+                                      } ?></td>
                                     <td>
                                       <a href="<?php echo site_url('owner/lihatDetailPenjualan/'.$u->id_penjualan); ?>" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-exclamation-triangle"></i>

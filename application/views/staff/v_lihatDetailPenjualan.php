@@ -25,18 +25,27 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Menu</th>
+                                    <th>Harga</th>
                                     <th>Jumlah</th>
                                 </tr>
                             </thead>
-                            <?php foreach ($detail_penjualan2 as $x){?>
+                            <?php foreach ($detail_penjualan2 as $x){
+                              ?>
                             <tfoot role="row" class="py-2 bg-light text-semibold border-bottom">
-                            <tr>
-                                <th scope="col" class="border-0"></th>
-                                <th scope="col" class="border-0">Total</th>
-                                <th scope="col" class="border-0"><?php
-                                 echo 'Rp '. number_format($x->total,2,",","."); ?></th>
-                                <th scope="col" class="border-0"></th>
-                            </tr>
+                              <tr>
+                                  <th scope="col" class="border-0"></th>
+                                  <th scope="col" class="border-0"></th>
+                                  <th scope="col" class="border-0">Total</th>
+                                  <th scope="col" class="border-0"><?php
+                                    if($penjualan[0] -> star_member == 'Ya'){
+                                      $c = $x->total * 0.9  ;
+                                    } else {
+                                      $c = $x->total ;
+                                    }
+                                   echo 'Rp '. number_format($c,2,",",".");
+                                    ?></th>
+                                  <th scope="col" class="border-0"></th>
+                              </tr>
                           </tfoot>
                         <?php } ?>
                             <tbody>
@@ -45,11 +54,13 @@
                                       $no = 1;
                                       foreach ($detail_penjualan as $u){
                                       ?>
-                                  <tr>
-                                          <td><?php echo $no++ ?></td>
-                                          <td><?php  foreach ($menuBar as $a){if ($a->id_menu == $u->id_menu) :echo $a->nama;endif;} ?></td>
-                                          <td><?php  echo $u->jumlah ?></td>
-                                </tr>
+                                      <tr>
+                                              <td><?php echo $no++ ?></td>
+                                              <td><?php  foreach ($menuBar as $a){ if ($a->id_menu == $u->id_menu) :echo $a->nama ;endif;}
+                                              ?></td>
+                                              <td><?php  echo $u->jumlah ?></td>
+                                              <td><?php foreach ($menuBar as $a){ if ($a->id_menu == $u->id_menu) :echo 'Rp '. number_format($a->harga,2,",",".");  endif;} ?></td>
+                                    </tr>
                               <?php } ?>
                             </tbody>
                         </table>

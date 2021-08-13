@@ -64,10 +64,10 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+            <li class="nav-item" >
+                <a class="nav-link" href="<?= base_url('staff/lihatPenjualanHariIni') ?>">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Tables</span></a>
+                    <span>Lihat Penjualan Hari Ini</span></a>
             </li>
 
             <!-- Divider -->

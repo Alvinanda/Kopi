@@ -464,7 +464,7 @@
   function lihatDetailPenjualan($id_penjualan){
     $id_outlet= $this->session->userdata('outlet');
     $today = date('l');
-		//$data['penjualan'] = $this->m_staff->tampilPenjualanHariIni($today,$id_user)->result();
+		$data['penjualan'] = $this->m_manajer->tampilPenjualan($id_penjualan)->result();
     $data['detail_penjualan'] = $this->m_manajer->tampilDetailPenjualan($id_penjualan)->result();
     $data['detail_penjualan2'] = $this->m_manajer->tampilDetailPenjualan2($id_penjualan)->result();
 

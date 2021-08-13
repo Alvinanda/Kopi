@@ -130,6 +130,8 @@
     $this->load->view('layouts/footer');
   }
 
+//start of Penjualan
+
   function inputPenjualan(){
 		$data['member'] = $this->m_staff->tampilStarMember()->result();
 		// $data['penyelenggara'] = $this->m_admin->tampilPenyelenggara()->result();
@@ -169,7 +171,10 @@
 		$data['penjualan'] = $this->m_staff->tampilPenjualan($id_penjualan)->result();
     $data['detail_penjualan'] = $this->m_staff->tampilDetailPenjualan($id_penjualan)->result();
     $data['detail_penjualan2'] = $this->m_staff->tampilDetailPenjualan2($id_penjualan)->result();
+    $data['detail_penjualan3'] = $this->m_staff->tampilDetailPenjualan3($id_penjualan)->result();
+    $data['total'] = $data['detail_penjualan2'] + $data['detail_penjualan3'];
 
+     //var_dump($data['total']);die;
     $data['menuBar'] = $this->m_staff->tampilMenuBar($id_outlet)->result();
     $data['menuRetail'] = $this->m_staff->tampilMenuRetail($id_outlet)->result();
     $this->load->view('staff/v_tambah_detail_penjualan',$data);
@@ -216,12 +221,12 @@
   function lihatDetailPenjualan($id_penjualan){
     $id_outlet= $this->session->userdata('outlet');
     $today = date('l');
-		//$data['penjualan'] = $this->m_staff->tampilPenjualanHariIni($today,$id_user)->result();
+		$data['penjualan'] = $this->m_staff->tampilPenjualan($id_penjualan)->result();
     $data['detail_penjualan'] = $this->m_staff->tampilDetailPenjualan($id_penjualan)->result();
     $data['detail_penjualan2'] = $this->m_staff->tampilDetailPenjualan2($id_penjualan)->result();
-
-  $data['menuBar'] = $this->m_staff->tampilMenuBar($id_outlet)->result();
-  $data['menuRetail'] = $this->m_staff->tampilMenuRetail($id_outlet)->result();
+    $data['detail_penjualan3'] = $this->m_staff->tampilDetailPenjualan3($id_penjualan)->result();
+    $data['menuBar'] = $this->m_staff->tampilMenuBar($id_outlet)->result();
+    $data['menuRetail'] = $this->m_staff->tampilMenuRetail($id_outlet)->result();
     $this->load->view('staff/v_lihatDetailPenjualan',$data);
     $this->load->view('layouts/footer');
 	}

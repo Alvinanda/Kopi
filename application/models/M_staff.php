@@ -147,6 +147,15 @@ class m_staff extends CI_Model{
     return $this->db->get();
   }
 
+  function tampilDetailPenjualan3($id_penjualan){
+    $this->db->select('SUM(u.harga * a.jumlah) as total');
+    $this->db->from('detail_penjualan a');
+    $this->db->join('menu_retail u', 'u.id_retail = a.id_menu');
+    $this->db->group_by('a.id_penjualan');
+    $this->db->where('a.id_penjualan',$id_penjualan);
+    return $this->db->get();
+  }
+
   function jumlahInvoiceHariIni($date){
     $this->db->from('penjualan');
     $this->db->where('Date(tanggal)', $date);

@@ -33,7 +33,8 @@
                                                 Total Pendapatan Hari Ini</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                               <?php
-                                             echo 'Rp '. number_format($total[0]->total,2,",",".");
+                                              $c = $total[0]->total + $total2[0]->total;
+                                             echo 'Rp '. number_format($c,2,",",".");
                                              ?></div>
                                         </div>
                                         <div class="col-auto">
@@ -56,7 +57,8 @@
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php
-                                                   echo 'Rp '. number_format($totalBulan[0]->total,2,",",".");
+                                                    $d = $totalBulan[0]->total + $totalBulan2[0]->total;
+                                                   echo 'Rp '. number_format($d,2,",",".");
                                                    ?></div>
                                                 </div>
                                             </div>

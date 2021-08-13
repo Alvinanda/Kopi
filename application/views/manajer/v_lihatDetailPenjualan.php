@@ -33,7 +33,13 @@
                                 <th scope="col" class="border-0"></th>
                                 <th scope="col" class="border-0">Total</th>
                                 <th scope="col" class="border-0"><?php
-                                 echo 'Rp '. number_format($x->total,2,",","."); ?></th>
+                                  if($penjualan[0] -> star_member == 'Ya'){
+                                    $c = $x->total * 0.9  ;
+                                  } else {
+                                    $c = $x->total ;
+                                  }
+                                 echo 'Rp '. number_format($c,2,",",".");
+                                  ?></th>
                                 <th scope="col" class="border-0"></th>
                             </tr>
                           </tfoot>

@@ -122,6 +122,11 @@ class m_manajer extends CI_Model{
     return $this->db->get('hari');
   }
 
+  function tampilPenjualan($id_penjualan){
+    $this->db->where('id_penjualan',$id_penjualan);
+    return $this->db->get_where('penjualan');
+  }
+
   function tampilPenjualanHariIni($where,$outlet){
     $this->db->where('DAYNAME(tanggal)',$where);
     $this->db->where('id_outlet',$outlet);

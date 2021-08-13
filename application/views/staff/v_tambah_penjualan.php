@@ -53,9 +53,8 @@
                     <label for="feDescription">Status</label>
                     <select name="status" id="feInputState" class="form-control">
                         <option selected>Pilih</option>
-                        <option value="Sudah Dibayar">Sudah Dibayar </option>
-                        <option value="Belum Dibayar">Belum Dibayar </option>
-                        <option value="Belum Lunas">Belum Lunas </option>
+                        <option value="Sudah Dibayar">Cash </option>
+                        <option value="Belum Dibayar">Cashhless </option>
                     </select>
                    </div>
                 </div>

@@ -20,7 +20,9 @@
     $outlet= $this->session->userdata('outlet');
     $data['menuTerjual'] = $this->m_owner->tampilItemTerjualPerhari($outlet)->result();
     $data['total'] = $this->m_owner->tampilTotallPenjualanHariIni($outlet)->result();
+    $data['total2'] = $this->m_owner->tampilTotallPenjualanHariIni2($outlet)->result();
     $data['totalBulan'] = $this->m_owner->tampilTotallPenjualanBulanIni($outlet)->result();
+    $data['totalBulan2'] = $this->m_owner->tampilTotallPenjualanBulanIni2($outlet)->result();
     $this->load->view('owner/index', $data);
     $this->load->view('layouts/footer');
   }
@@ -210,6 +212,7 @@
       $harga= $this->input->post('harga');
       $status= $this->input->post('status');
       $outlet= $this->session->userdata('outlet');
+      $tipe = 'menu_bar';
 
 
 
@@ -217,7 +220,8 @@
         'nama' => $nama,
         'harga' => $harga,
         'status' => $status,
-        'outlet' => $outlet
+        'outlet' => $outlet,
+        'tipe' => $tipe
       );
       $this->m_owner->tambahdata($data,'menu_bar');
       redirect('owner/lihatMenuBar');
@@ -275,6 +279,7 @@
     $harga= $this->input->post('harga');
     $status= $this->input->post('status');
     $outlet= $this->session->userdata('outlet');
+    $tipe = 'menu_retail';
 
 
 
@@ -282,9 +287,10 @@
       'nama' => $nama,
       'harga' => $harga,
       'status' => $status,
-      'outlet' => $outlet
+      'outlet' => $outlet,
+      'tipe' => $tipe
     );
-    $this->m_owner->tambahdata($data,'menu_retail');
+    $this->m_owner->tambahdata($data,'menu_bar');
     redirect('owner/lihatMenuRetail');
   }
 
@@ -295,9 +301,9 @@
     $this->load->view('layouts/footer');
   }
 
-  function updateMenuRetail($id_retail){
-    $where = array('id_retail' => $id_retail);
-    $data['menu_bar'] = $this->m_owner->edit_data($where,'menu_retail')->result();
+  function updateMenuRetail($id_menu){
+    $where = array('id_menu' => $id_menu);
+    $data['menu_bar'] = $this->m_owner->edit_data($where,'menu_bar')->result();
     $this->load->view('owner/v_editMenuRetail', $data);
     $this->load->view('layouts/footer');
   }
@@ -316,8 +322,8 @@
       'outlet' => $outlet
     );
 
-    $where = array('id_retail' => $id_retail);
-    $this->m_owner->update_data($where,$data,'menu_retail');
+    $where = array('id_menu' => $id_retail);
+    $this->m_owner->update_data($where,$data,'menu_bar');
     redirect('owner/lihatMenuRetail');
   }
 
@@ -335,8 +341,8 @@
     $outlet= $this->session->userdata('outlet');
     $data['penjualan'] = $this->m_owner->tampilPenjualan($outlet)->result();
     // $data['detail_penjualan'] = $this->m_owner->tampilDetailPenjualan($id_penjualan)->result();
-    $data['total'] = $this->m_owner->tampilTotallPenjualan($outlet)->result();
-
+      $data['total'] = $this->m_owner->tampilTotallPenjualan($outlet)->result();
+    $data['total2'] = $this->m_owner->tampilTotallPenjualan2($outlet)->result();
   //  $data['menuBar'] = $this->m_owner->tampilMenuBar($id_outlet)->result();
   //  $data['menuRetail'] = $this->m_owner->tampilMenuRetail($id_outlet)->result();
     $this->load->view('owner/v_lihatPenjualan',$data);

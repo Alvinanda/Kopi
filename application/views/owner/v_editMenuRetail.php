@@ -21,8 +21,8 @@
                         <div class="form-group row">
                             <label for="formGroupExampleInput" class="col-sm-2 col-form-label">ID</label>
                           <div class="col-sm-10">
-                            <input disabled type="text" class="form-control" name="id_retail" id="formGroupExampleInput" value="<?php echo $u->id_retail ?>" placeholder="">
-                            <input hidden type="text" class="form-control" name="id_retail" id="formGroupExampleInput" value="<?php echo $u->id_retail ?>" placeholder="">
+                            <input disabled type="text" class="form-control" name="id_retail" id="formGroupExampleInput" value="<?php echo $u->id_menu ?>" placeholder="">
+                            <input hidden type="text" class="form-control" name="id_retail" id="formGroupExampleInput" value="<?php echo $u->id_menu ?>" placeholder="">
                           </div>
                         </div>
                         <div class="form-group row">

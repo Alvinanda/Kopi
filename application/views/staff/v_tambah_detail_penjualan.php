@@ -24,6 +24,7 @@
                     <th scope="col" class="border-0">Kode Penjulan</th>
                     <th scope="col" class="border-0">Nama Pembeli</th>
                     <th scope="col" class="border-0">Tanggal</th>
+                    <th scope="col" class="border-0">Star Member</th>
                     <th scope="col" class="border-0">Status</th>
                 </tr>
                 </thead>
@@ -36,6 +37,7 @@
                         <td><?php echo $u->id_penjualan;?></td>
                         <td><?php echo $u->nama_pembeli ?></td>
                         <td><?php echo date("d-m-Y", strtotime($u->tanggal));?></td>
+                        <td><?php echo $u->star_member ?></td>
                         <td><?php echo $u->status;?></td>
                     </tr>
 
@@ -70,16 +72,27 @@
                         <th scope="col" class="border-0">No</th>
                         <th scope="col" class="border-0">Nama Menu</th>
                         <th scope="col" class="border-0">Jumlah</th>
+                        <th scope="col" class="border-0">Harga Satuan</th>
                         <th scope="col" class="border-0">Delete</th>
                     </tr>
                     </thead>
-                    <?php foreach ($detail_penjualan2 as $x){?>
+                    <?php foreach ($detail_penjualan2 as $x){
+
+                      ?>
                     <tfoot role="row" class="py-2 bg-light text-semibold border-bottom">
                     <tr>
                         <th scope="col" class="border-0"></th>
                         <th scope="col" class="border-0">Total</th>
+                        <th scope="col" class="border-0">Harga</th>
                         <th scope="col" class="border-0"><?php
-                         echo 'Rp '. number_format($x->total,2,",","."); ?></th>
+                          if($penjualan[0] -> star_member == 'Ya'){
+                            $c = $x->total * 0.9  ;
+                            $d = $x->total * 0.1  ;
+                          } else {
+                            $c = $x->total ;
+                          }
+                         echo 'Rp '. number_format($c,2,",",".");
+                          ?></th>
                         <th scope="col" class="border-0"></th>
                     </tr>
                   </tfoot>
@@ -92,8 +105,10 @@
                         ?>
                     <tr>
                     <td><?php echo $no++ ?></td>
-                            <td><?php  foreach ($menuBar as $a){if ($a->id_menu == $u->id_menu) :echo $a->nama;endif;} ?></td>
+                            <td><?php  foreach ($menuBar as $a){ if ($a->id_menu == $u->id_menu) :echo $a->nama ;endif;}
+                            ?></td>
                             <td><?php  echo $u->jumlah ?></td>
+                            <td><?php foreach ($menuBar as $a){ if ($a->id_menu == $u->id_menu) :echo 'Rp '. number_format($a->harga,2,",",".");  endif;} ?></td>
                             <td class="sorting_1" style="">
                                 <a href="<?php echo site_url('staff/hapus_detail_penjualan/'.$u->id_penjualan."/".$u->id); ?>"  type="button" class="btn btn-danger btn-circle btn-sm" onclick="return deletechecked();" title="Hapus">
                                     <i class="fas fa-trash"></i>
@@ -123,7 +138,7 @@
         <!-- Post Overview -->
         <div class='card card-small mb-3'>
         <div class="card-header border-bottom">
-            <h6 class="m-0">Tambah Menu</h6>
+            <h6 class="m-0">Tambah Menu Bar</h6>
         </div>
         <div class='card-body p-0'>
             <div class="p-3">
@@ -137,7 +152,7 @@
                       foreach ($menuBar as $a){?>
                               <option value="<?php echo $a->id_menu;?>"><?php echo $a->nama;?></option>
                           <?php }  ?>
-              </select><br>
+                  </select><br>
               <label for="feInputAddress">Jumlah</label>
               <input name="jumlah" type="number" min="1" class="form-control" id="feLastName" >
 
@@ -156,8 +171,8 @@
         </div>
         </div>
 
-    </div>
 
+    </div>
 
 
 

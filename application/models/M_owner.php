@@ -31,12 +31,14 @@ class M_owner extends CI_Model{
 
     function tampilMenuBar($where){
       $this->db->where('outlet',$where);
+      $this->db->where('tipe','menu_bar');
       return $this->db->get_where('menu_bar');
       }
 
       function tampilMenuRetail($where){
         $this->db->where('outlet',$where);
-        return $this->db->get_where('menu_retail');
+        $this->db->where('tipe','menu_retail');
+        return $this->db->get_where('menu_bar');
         }
 
   function tampilOutlet(){
@@ -56,6 +58,15 @@ class M_owner extends CI_Model{
       $this->db->select('a.id_penjualan, SUM(u.harga * a.jumlah) as total');
       $this->db->from('detail_penjualan a');
       $this->db->join('menu_bar u', 'u.id_menu = a.id_menu');
+      $this->db->where('a.id_outlet',$outlet);
+      $this->db->group_by("a.id_penjualan");
+      return $this->db->get();
+    }
+
+    function tampilTotallPenjualan2($outlet){
+      $this->db->select('a.id_penjualan, SUM(u.harga * a.jumlah) as total');
+      $this->db->from('detail_penjualan a');
+      $this->db->join('menu_retail u', 'u.id_retail = a.id_menu');
       $this->db->where('a.id_outlet',$outlet);
       $this->db->group_by("a.id_penjualan");
       return $this->db->get();
@@ -121,11 +132,31 @@ class M_owner extends CI_Model{
       return $this->db->get();
     }
 
+    function tampilTotallPenjualanHariIni2($outlet){
+      $this->db->select('sum(a.jumlah * s.harga) as total ');
+      $this->db->from('detail_penjualan a');
+      $this->db->join('penjualan u', 'u.id_penjualan =  a.id_penjualan');
+      $this->db->join('menu_retail s', 's.id_retail =  a.id_menu');
+      $this->db->where('DAYNAME(u.tanggal) = DAYNAME(CURDATE())');
+      $this->db->where('a.id_outlet', $outlet);
+      return $this->db->get();
+    }
+
     function tampilTotallPenjualanBulanIni($outlet){
       $this->db->select('sum(a.jumlah * s.harga) as total ');
       $this->db->from('detail_penjualan a');
       $this->db->join('penjualan u', 'u.id_penjualan =  a.id_penjualan');
       $this->db->join('menu_bar s', 's.id_menu =  a.id_menu');
+      $this->db->where('MONTH(u.tanggal) = MONTH(CURDATE())');
+      $this->db->where('a.id_outlet', $outlet);
+      return $this->db->get();
+    }
+
+    function tampilTotallPenjualanBulanIni2($outlet){
+      $this->db->select('sum(a.jumlah * s.harga) as total ');
+      $this->db->from('detail_penjualan a');
+      $this->db->join('penjualan u', 'u.id_penjualan =  a.id_penjualan');
+      $this->db->join('menu_retail s', 's.id_retail =  a.id_menu');
       $this->db->where('MONTH(u.tanggal) = MONTH(CURDATE())');
       $this->db->where('a.id_outlet', $outlet);
       return $this->db->get();
