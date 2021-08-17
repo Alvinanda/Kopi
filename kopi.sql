@@ -11,7 +11,7 @@
  Target Server Version : 100419
  File Encoding         : 65001
 
- Date: 09/07/2021 18:55:23
+ Date: 17/08/2021 16:42:47
 */
 
 SET NAMES utf8mb4;
@@ -71,7 +71,7 @@ CREATE TABLE `detail_penjualan`  (
   `jumlah` int NULL DEFAULT NULL,
   `id_outlet` int NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 39 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of detail_penjualan
@@ -96,9 +96,36 @@ INSERT INTO `detail_penjualan` VALUES (32, '202107092001', 1, 1, 2);
 INSERT INTO `detail_penjualan` VALUES (33, '202107092001', 1, 1, 2);
 INSERT INTO `detail_penjualan` VALUES (34, '202107092002', 1, 2, 2);
 INSERT INTO `detail_penjualan` VALUES (35, '202107092002', 1, 4, 2);
-INSERT INTO `detail_penjualan` VALUES (36, '202107092003', 5, 1, 2);
-INSERT INTO `detail_penjualan` VALUES (37, '202107092003', 1, 4, 2);
-INSERT INTO `detail_penjualan` VALUES (38, '202107092003', 5, 3, 2);
+INSERT INTO `detail_penjualan` VALUES (45, '202107092003', 3, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (49, '202107092003', 3, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (50, '202107092003', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (51, '202107102001', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (53, '202107102001', 6, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (55, '202107102001', 3, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (56, '202107102001', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (57, '202107102001', 6, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (58, '202107312001', 5, 2, 2);
+INSERT INTO `detail_penjualan` VALUES (60, '202107312001', 1, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (61, '202107312001', 6, 1, 2);
+INSERT INTO `detail_penjualan` VALUES (62, '202107312001', 7, 1, 2);
+
+-- ----------------------------
+-- Table structure for gaji
+-- ----------------------------
+DROP TABLE IF EXISTS `gaji`;
+CREATE TABLE `gaji`  (
+  `id_gaji` int NOT NULL AUTO_INCREMENT,
+  `jabatan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `gaji` int NULL DEFAULT NULL,
+  `outlet` int NULL DEFAULT NULL,
+  PRIMARY KEY (`id_gaji`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of gaji
+-- ----------------------------
+INSERT INTO `gaji` VALUES (2, 'staff', 20000, 2);
+INSERT INTO `gaji` VALUES (3, 'manajer', 30000, 2);
 
 -- ----------------------------
 -- Table structure for hari
@@ -172,15 +199,18 @@ CREATE TABLE `menu_bar`  (
   `outlet` int NULL DEFAULT NULL,
   `harga` int NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `tipe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_menu`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_bar
 -- ----------------------------
-INSERT INTO `menu_bar` VALUES (1, 'Coffe Latte edit', 2, 10000, 'tersedia');
-INSERT INTO `menu_bar` VALUES (4, 'Kopi susu', 1, 1000, 'tersedia');
-INSERT INTO `menu_bar` VALUES (5, 'Kopi Arjuna class D 10 gram edit', 2, 1000, 'tersedia');
+INSERT INTO `menu_bar` VALUES (1, 'Coffe Latte edit', 2, 10000, 'tersedia', 'menu_bar');
+INSERT INTO `menu_bar` VALUES (4, 'Kopi susu', 1, 1000, 'tersedia', 'menu_bar');
+INSERT INTO `menu_bar` VALUES (5, 'Kopi Arjuna class D 10 gram edit', 2, 1000, 'tersedia', 'menu_bar');
+INSERT INTO `menu_bar` VALUES (6, 'Cappucinno ice', 2, 10000, 'tersedia', 'menu_bar');
+INSERT INTO `menu_bar` VALUES (7, 'Rose Bean Begawan 1000 gr', 2, 15000, 'tersedia', 'menu_retail');
 
 -- ----------------------------
 -- Table structure for menu_retail
@@ -193,13 +223,13 @@ CREATE TABLE `menu_retail`  (
   `outlet` int NULL DEFAULT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_retail`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_retail
 -- ----------------------------
-INSERT INTO `menu_retail` VALUES (1, 'Kopi Arjuna class D 10 gram', 1000, 2, 'tersedia');
-INSERT INTO `menu_retail` VALUES (3, 'asdasd', 213123, 2, 'asd');
+INSERT INTO `menu_retail` VALUES (3, 'Kopi Dampit', 10000, 2, 'asd');
+INSERT INTO `menu_retail` VALUES (6, 'Kopi Arjuna class D 10 gram', 1000, 2, 'tersedia');
 
 -- ----------------------------
 -- Table structure for outlet
@@ -235,14 +265,18 @@ CREATE TABLE `pengeluaran`  (
   `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `outlet` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `tanggal_transaksi` date NULL DEFAULT NULL,
+  `tipe` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id_pengeluaran`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of pengeluaran
 -- ----------------------------
-INSERT INTO `pengeluaran` VALUES (1, 'Beli Gula ', 1000000, 'credit', '2', '2021-05-30');
-INSERT INTO `pengeluaran` VALUES (2, 'Beli Nasi', 100000, 'debit', '1', '2021-05-30');
+INSERT INTO `pengeluaran` VALUES (1, 'Beli Gula ', 1000000, 'credit', '2', '2021-05-30', 'sekali');
+INSERT INTO `pengeluaran` VALUES (2, 'Beli Nasi', 100000, 'debit', '1', '2021-05-30', 'sekali');
+INSERT INTO `pengeluaran` VALUES (4, 'Beli galon ', 20000, 'cash', '2', '2021-08-14', 'sekali');
+INSERT INTO `pengeluaran` VALUES (5, 'Sewa Bangunan', 1000000, 'credit', '2', NULL, 'tetap');
+INSERT INTO `pengeluaran` VALUES (6, 'beli jus buah', 50000, 'credit', '2', '2021-07-14', 'sekali');
 
 -- ----------------------------
 -- Table structure for penjualan
@@ -271,6 +305,8 @@ INSERT INTO `penjualan` VALUES ('202107082002', 'Ariel', '2021-07-08 12:39:03', 
 INSERT INTO `penjualan` VALUES ('202107092001', 'jumet', '2021-07-09 08:36:37', 14, 'Belum Dibayar', 2, 'Tidak');
 INSERT INTO `penjualan` VALUES ('202107092002', 'mblooo', '2021-07-09 14:22:14', 14, 'Sudah Dibayar', 2, 'Tidak');
 INSERT INTO `penjualan` VALUES ('202107092003', 'uus', '2021-07-09 14:35:29', 14, 'Belum Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107102001', 'bob', '2021-07-10 08:49:41', 14, 'Sudah Dibayar', 2, 'Tidak');
+INSERT INTO `penjualan` VALUES ('202107312001', 'jumi', '2021-07-31 15:10:29', 14, 'Sudah Dibayar', 2, 'Ya');
 INSERT INTO `penjualan` VALUES ('2021088999', 'mboh', '2021-07-12 13:41:51', 14, 'Belum Dibayar', 2, 'Tidak');
 INSERT INTO `penjualan` VALUES ('20210921921', 'ucil', '2021-07-20 15:16:43', 14, 'Belum Bayar', 2, 'Tidak');
 
@@ -325,5 +361,21 @@ INSERT INTO `user` VALUES (14, 'joss 2', '1234', 'jalan kendal payak 23', 'pria'
 INSERT INTO `user` VALUES (15, 'joss', '1234', 'jalan kendal payak 23', 'pria', '1899-10-31', '1231231', 'aktif', 'manajer', 2);
 INSERT INTO `user` VALUES (23, 'jeje', '*********', 'jauuuuh', 'pria', '2021-05-03', '12321513515841', 'aktif', 'star member', 2);
 INSERT INTO `user` VALUES (211, 'alvin2', '1234', 'asda', 'L', '2021-06-27', '0239420394', 'aktif', 'holding', 1);
+
+-- ----------------------------
+-- View structure for penjualan_bar
+-- ----------------------------
+DROP VIEW IF EXISTS `penjualan_bar`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `penjualan_bar` AS SELECT detail_penjualan.id_penjualan ,SUM(menu_bar.harga * detail_penjualan.jumlah) as total from detail_penjualan
+JOIN menu_bar on menu_bar.id_menu = detail_penjualan.id_menu
+GROUP BY id_penjualan ;
+
+-- ----------------------------
+-- View structure for penjualan_retail
+-- ----------------------------
+DROP VIEW IF EXISTS `penjualan_retail`;
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `penjualan_retail` AS SELECT detail_penjualan.id_penjualan ,SUM(menu_retail.harga * detail_penjualan.jumlah) as total from detail_penjualan
+JOIN menu_retail on menu_retail.id_retail = detail_penjualan.id_menu
+GROUP BY id_penjualan ;
 
 SET FOREIGN_KEY_CHECKS = 1;

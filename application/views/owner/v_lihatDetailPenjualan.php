@@ -29,7 +29,6 @@
                                 </tr>
                             </thead>
                             <?php foreach ($detail_penjualan2 as $x){
-                                foreach ($detail_penjualan3 as $y){
                               ?>
                             <tfoot role="row" class="py-2 bg-light text-semibold border-bottom">
                               <tr>
@@ -37,12 +36,17 @@
                                   <th scope="col" class="border-0"></th>
                                   <th scope="col" class="border-0">Total</th>
                                   <th scope="col" class="border-0"><?php
-                                  $c = $x->total + $y->total ;
-                                   echo 'Rp '. number_format($c,2,",","."); ?></th>
+                                    if($penjualan[0] -> star_member == 'Ya'){
+                                      $c = $x->total * 0.9  ;
+                                    } else {
+                                      $c = $x->total ;
+                                    }
+                                   echo 'Rp '. number_format($c,2,",",".");
+                                    ?></th>
                                   <th scope="col" class="border-0"></th>
                               </tr>
                           </tfoot>
-                        <?php }} ?>
+                        <?php } ?>
                             <tbody>
                                 <tr>
                                   <?php
@@ -52,11 +56,9 @@
                                   <tr>
                                           <td><?php echo $no++ ?></td>
                                           <td><?php  foreach ($menuBar as $a){ if ($a->id_menu == $u->id_menu) :echo $a->nama ;endif;}
-                                                    foreach ($menuRetail as $a){ if ($a->id_retail == $u->id_menu) :echo $a->nama ;endif;}
                                           ?></td>
                                           <td><?php  echo $u->jumlah ?></td>
-                                          <td><?php foreach ($menuBar as $a){ if ($a->id_menu == $u->id_menu) :echo 'Rp '. number_format($a->harga,2,",",".");  endif;}
-                                                    foreach ($menuRetail as $a){ if ($a->id_retail == $u->id_menu) :echo 'Rp '. number_format($a->harga,2,",","."); ;endif;} ?></td>
+                                          <td><?php foreach ($menuBar as $a){ if ($a->id_menu == $u->id_menu) :echo 'Rp '. number_format($a->harga,2,",",".");  endif;}?></td>
                                 </tr>
                               <?php } ?>
                             </tbody>

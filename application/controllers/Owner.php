@@ -125,7 +125,7 @@
 	}
 //end of pegawai
 
-//start of pengeluaran
+//start of pengeluaran sekali
     function tambahPengeluaran(){
       $this->load->view('owner/v_tambahPengeluaran');
       $this->load->view('layouts/footer');
@@ -138,6 +138,7 @@
       $keterangan= $this->input->post('keterangan');
       $tanggal_transaksi= $this->input->post('tanggal_transaksi');
       $outlet= $this->session->userdata('outlet');
+      $tipe = 'sekali';
 
 
 
@@ -146,7 +147,8 @@
         'total' => $total,
         'keterangan' => $keterangan,
         'tanggal_transaksi' => $tanggal_transaksi,
-        'outlet' => $outlet
+        'outlet' => $outlet,
+        'tipe' => $tipe
       );
       $this->m_owner->tambahdata($data,'pengeluaran');
       $this->session->set_flashdata('notif',"User berhasil ditambahkan");
@@ -156,7 +158,6 @@
     function lihatPengeluaran(){
       $outlet= $this->session->userdata('outlet');
       $data['pengeluaran'] = $this->m_owner->tampilPengeluaran($outlet)->result();
-
       $this->load->view('owner/v_lihatPengeluaran', $data);
       $this->load->view('layouts/footer');
     }
@@ -175,13 +176,15 @@
       $keterangan= $this->input->post('keterangan');
       $tanggal_transaksi= $this->input->post('tanggal_transaksi');
       $outlet= $this->session->userdata('outlet');
+      $tipe = 'sekali';
 
       $data = array(
         'nama' => $nama,
         'total' => $total,
         'keterangan' => $keterangan,
         'tanggal_transaksi' => $tanggal_transaksi,
-        'outlet' => $outlet
+        'outlet' => $outlet,
+        'tipe' => $tipe
       );
 
       $where = array('id_pengeluaran' => $id_pengeluaran);
@@ -197,7 +200,82 @@
   		redirect('owner/lihatPengeluaran');
   	}
 
-    //end of pengeluaran
+    //end of pengeluaran sekali
+
+    //start of pengeluaran tetap
+        function tambahPengeluaranTetap(){
+          $this->load->view('owner/v_tambahPengeluaranTetap');
+          $this->load->view('layouts/footer');
+
+        }
+
+        function tambahkanPengeluaranTetap(){
+          $nama= $this->input->post('nama');
+          $total= $this->input->post('total');
+          $keterangan= $this->input->post('keterangan');
+          $tanggal_transaksi= $this->input->post('tanggal_transaksi');
+          $outlet= $this->session->userdata('outlet');
+          $tipe = 'tetap';
+
+
+
+          $data = array(
+            'nama' => $nama,
+            'total' => $total,
+            'keterangan' => $keterangan,
+            'outlet' => $outlet,
+            'tipe' => $tipe
+          );
+          $this->m_owner->tambahdata($data,'pengeluaran');
+          $this->session->set_flashdata('notif',"User berhasil ditambahkan");
+          redirect('owner/lihatPengeluaranTetap');
+        }
+
+        function lihatPengeluaranTetap(){
+          $outlet= $this->session->userdata('outlet');
+          $data['pengeluaran'] = $this->m_owner->tampilPengeluaranTetap ($outlet)->result();
+          $this->load->view('owner/v_lihatPengeluaranTetap', $data);
+          $this->load->view('layouts/footer');
+        }
+
+        function updatePengeluaranTetap($id_pengeluaran){
+      		$where = array('id_pengeluaran' => $id_pengeluaran);
+      		$data['pengeluaran'] = $this->m_owner->edit_data($where,'pengeluaran')->result();
+      		$this->load->view('owner/v_editPengeluaranTetap', $data);
+          $this->load->view('layouts/footer');
+      	}
+
+        function editPengeluaranTetap(){
+          $id_pengeluaran = $this->input->post('id_pengeluaran');
+          $nama= $this->input->post('nama');
+          $total= $this->input->post('total');
+          $keterangan= $this->input->post('keterangan');
+          $tanggal_transaksi= $this->input->post('tanggal_transaksi');
+          $outlet= $this->session->userdata('outlet');
+          $tipe = 'tetap';
+
+          $data = array(
+            'nama' => $nama,
+            'total' => $total,
+            'keterangan' => $keterangan,
+            'outlet' => $outlet,
+            'tipe' => $tipe
+          );
+
+          $where = array('id_pengeluaran' => $id_pengeluaran);
+          $this->m_owner->update_data($where,$data,'pengeluaran');
+          $this->session->set_flashdata('notif', "Data user $id_pengeluaran berhasil di Update");
+          redirect('owner/lihatPengeluaranTetap');
+        }
+
+        function hapusPengeluaranTetap($id_pengeluaran){
+      		$where = array('id_pengeluaran' => $id_pengeluaran);
+      		$this->m_owner->hapus_data($where,'pengeluaran');
+      		$this->session->set_flashdata('notif', "Data User $id_user berhasil dihapus");
+      		redirect('owner/lihatPengeluaranTetap');
+      	}
+
+        //end of pengeluaran sekali
 
     //start of Menu Bar
 
@@ -335,6 +413,67 @@
 
   //End of Menu Retail
 
+  //Start of Gaji
+  function tambahGaji(){
+    $this->load->view('owner/v_tambahGaji');
+    $this->load->view('layouts/footer');
+
+  }
+
+  function tambahkanGaji(){
+    $jabatan= $this->input->post('jabatan');
+    $gaji= $this->input->post('gaji');
+    $outlet= $this->session->userdata('outlet');
+
+
+
+    $data = array(
+      'jabatan' => $jabatan,
+      'gaji' => $gaji,
+      'outlet' => $outlet
+    );
+    $this->m_owner->tambahdata($data,'gaji');
+    redirect('owner/lihatGaji');
+  }
+
+  function lihatGaji(){
+    $outlet= $this->session->userdata('outlet');
+    $data['gaji'] = $this->m_owner->tampilGaji($outlet)->result();
+    $this->load->view('owner/v_lihatGaji', $data);
+    $this->load->view('layouts/footer');
+  }
+
+  function updateGaji($id_gaji){
+    $where = array('id_gaji' => $id_gaji);
+    $data['gaji'] = $this->m_owner->edit_data($where,'gaji')->result();
+    $this->load->view('owner/v_editGaji', $data);
+    $this->load->view('layouts/footer');
+  }
+
+  function editGaji(){
+    $id_gaji = $this->input->post('id_gaji');
+    $jabatan= $this->input->post('jabatan');
+    $gaji= $this->input->post('gaji');
+    $outlet= $this->session->userdata('outlet');
+
+    $data = array(
+      'jabatan' => $jabatan,
+      'gaji' => $gaji,
+      'outlet' => $outlet
+    );
+
+    $where = array('id_gaji' => $id_gaji);
+    $this->m_owner->update_data($where,$data,'gaji');
+    redirect('owner/lihatGaji');
+  }
+
+  function hapusGaji($id_gaji){
+    $where = array('id_gaji' => $id_gaji);
+    $this->m_owner->hapus_data($where,'gaji');
+    redirect('owner/lihatGaji');
+  }
+  //End of Gaji
+
   //start of  Laporan Penjualan
 
   function lihatPenjualan(){
@@ -365,7 +504,7 @@
   function lihatDetailPenjualan($id_penjualan){
     $id_outlet= $this->session->userdata('outlet');
     $today = date('l');
-		//$data['penjualan'] = $this->m_staff->tampilPenjualanHariIni($today,$id_user)->result();
+		$data['penjualan'] = $this->m_owner->tampilPenjualanID($id_penjualan,$id_outlet)->result();
     $data['detail_penjualan'] = $this->m_owner->tampilDetailPenjualan($id_penjualan)->result();
     $data['detail_penjualan2'] = $this->m_owner->tampilDetailPenjualan2($id_penjualan)->result();
 
@@ -400,5 +539,32 @@
 	}
 
   //end of Laporan Penjualan
+
+  //Start of lihatInvoice
+
+  function lihatInvoice(){
+    $outlet = $this->session->userdata('outlet');
+    $bulan = 7;
+    $data['totalPenjualan'] = $this->m_owner->tampilTotallPenjualanBulan($outlet,$bulan)->result();
+    $data['totalPengeluaran'] = $this->m_owner->tampilTotalPengeluaranBulan($outlet,$bulan)->result();
+    $data['totalPengeluaranTetap'] = $this->m_owner->tampilTotalPengeluaranBulanTetap($outlet)->result();
+    $data['totalGaji'] = $this->m_owner->tampilTotalGajiBulan($outlet,$bulan)->result();
+    $c = array();
+    foreach ( $data['totalPenjualan'] as $penjualan ) {
+      array_push($c,$penjualan->total);
+    }
+    $b = array();
+    foreach ( $data['totalGaji'] as $gaji ) {
+      array_push($b,$gaji->total);
+    }
+
+    $data['totalPenjualanBulan']= array_sum($c);
+    $data['totalGajiBulan']= array_sum($b);
+
+    $this->load->view('owner/v_lihatInvoice',$data);
+    $this->load->view('layouts/footer');
+  }
+
+  //End of Invoice
 
  }

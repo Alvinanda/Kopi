@@ -46,7 +46,7 @@
                                 <tr>
                                     <td><?php echo $no++ ?></td>
                                     <td><?php echo $u->nama ?></td>
-                                    <td><?php echo $u->total ?></td>
+                                    <td><?php echo 'Rp '.number_format($u->total,2,",","."); ?></td>
                                     <td><?php echo $u->keterangan ?></td>
                                     <td><?php echo $u->tanggal_transaksi ?></td>
                                     <td>

@@ -37,9 +37,11 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Tambahkan data:</h6>
                         <a class="collapse-item" href="<?= base_url('owner/tambahPegawai') ?>">Pegawai</a>
-                        <a class="collapse-item" href="<?= base_url('owner/tambahPengeluaran') ?>">Pengeluaran</a>
+                        <a class="collapse-item" href="<?= base_url('owner/tambahPengeluaran') ?>">Pengeluaran </a>
+                        <a class="collapse-item" href="<?= base_url('owner/tambahPengeluaranTetap') ?>">Pengeluaran Tetap</a>
                         <a class="collapse-item" href="<?= base_url('owner/tambahMenuBar') ?>">Menu Bar</a>
                         <a class="collapse-item" href="<?= base_url('owner/tambahMenuRetail') ?>">Menu Retail</a>
+                        <a class="collapse-item" href="<?= base_url('owner/tambahGaji') ?>">Gaji</a>
                     </div>
                 </div>
             </li>
@@ -55,8 +57,10 @@
                         <h6 class="collapse-header">Lihat data:</h6>
                         <a class="collapse-item" href="<?= base_url('owner/lihatPegawai') ?>">Pegawai</a>
                         <a class="collapse-item" href="<?= base_url('owner/lihatPengeluaran') ?>">Pengeluaran</a>
+                        <a class="collapse-item" href="<?= base_url('owner/lihatPengeluaranTetap') ?>">Pengeluaran Tetap</a>
                         <a class="collapse-item" href="<?= base_url('owner/lihatMenuBar') ?>">Menu Bar</a>
                         <a class="collapse-item" href="<?= base_url('owner/lihatMenuRetail') ?>">Menu Retail</a>
+                        <a class="collapse-item" href="<?= base_url('owner/lihatGaji') ?>">Gaji</a>
                     </div>
                 </div>
             </li>
@@ -94,6 +98,12 @@
                 <a class="nav-link" href="<?= base_url('owner/lihatPenjualanBulanan') ?>">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Penjualan Bulanan</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('owner/lihatInvoice') ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Invoice Bulan Ini</span></a>
             </li>
 
 
